@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { registerUser } from "@/api/auth";
+import toast from "react-hot-toast";
 
 export default function Register() {
 	const [formData, setFormData] = useState({
@@ -13,7 +14,6 @@ export default function Register() {
 		password: "",
 	});
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState("");
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -22,14 +22,12 @@ export default function Register() {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
-		setError("");
 
 		try {
-			// In a real app we'd handle the success response (e.g., redirecting or logging in)
 			await registerUser(formData);
-			alert("Registration successful!");
+			toast.success("Registration successful!");
 		} catch (err: any) {
-			setError(err.message || "Something went wrong. Please try again.");
+			toast.error(err.message || "Something went wrong. Please try again.");
 		} finally {
 			setLoading(false);
 		}
@@ -75,12 +73,6 @@ export default function Register() {
 				<p className="text-teal-100/60 font-light mb-8 text-center text-sm">
 					Join us and start connecting instantly.
 				</p>
-
-				{error && (
-					<div className="mb-6 p-3 rounded-lg bg-red-500/10 border border-red-500/50 text-red-400 text-sm text-center">
-						{error}
-					</div>
-				)}
 
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div>

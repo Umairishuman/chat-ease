@@ -1,8 +1,30 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function Login() {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [loading, setLoading] = useState(false);
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setLoading(true);
+
+		try {
+			// Mocking an API call for now until real auth is wired
+			await new Promise(resolve => setTimeout(resolve, 1000));
+			toast.success("Login successful!");
+		} catch (err: any) {
+			toast.error("Invalid credentials.");
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	return (
 		<div className="relative min-h-screen flex items-center justify-center font-sans overflow-hidden">
 			{/* Full Screen Background Image */}
@@ -44,13 +66,16 @@ export default function Login() {
 					Sign in to continue your conversations.
 				</p>
 
-				<form className="space-y-5">
+				<form onSubmit={handleSubmit} className="space-y-5">
 					<div>
 						<label className="block text-sm font-medium text-teal-100/80 mb-2">
 							Email Address
 						</label>
 						<input
 							type="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							required
 							placeholder="you@example.com"
 							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
 						/>
@@ -70,6 +95,9 @@ export default function Login() {
 						</div>
 						<input
 							type="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
 							placeholder="••••••••"
 							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
 						/>
@@ -77,9 +105,10 @@ export default function Login() {
 
 					<button
 						type="submit"
-						className="w-full py-4 mt-6 bg-teal-500 hover:bg-teal-400 text-teal-950 font-bold rounded-xl transition-all shadow-lg shadow-teal-500/20 active:scale-[0.98]"
+						disabled={loading}
+						className="w-full py-4 mt-6 bg-teal-500 hover:bg-teal-400 disabled:opacity-50 disabled:hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all shadow-lg shadow-teal-500/20 active:scale-[0.98]"
 					>
-						Sign In
+						{loading ? "Signing In..." : "Sign In"}
 					</button>
 				</form>
 
