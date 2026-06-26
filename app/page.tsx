@@ -54,6 +54,7 @@ export default function Home() {
                   src="/hero-mockup.png" 
                   alt="Chat-Ease Application Mockup" 
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover opacity-90 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-700"
                   priority
                 />

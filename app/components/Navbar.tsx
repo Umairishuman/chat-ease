@@ -10,9 +10,10 @@ export default function Navbar() {
           <Image 
             src="/enhanced-chat-ease-logo.png" 
             alt="Chat-Ease Logo" 
-            width={90} 
-            height={90} 
-            className="object-contain"
+            width={0} 
+            height={0} 
+            sizes="15vw"
+            className="w-auto h-10 object-contain"
           />
           <span className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-teal-400">
             Chat-Ease

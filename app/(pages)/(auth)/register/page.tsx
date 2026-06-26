@@ -42,6 +42,7 @@ export default function Register() {
 				src="/hero-mockup.png"
 				alt="Background"
 				fill
+				sizes="100vw"
 				className="object-cover z-0 opacity-40 mix-blend-luminosity"
 				priority
 			/>
@@ -57,9 +58,10 @@ export default function Register() {
 						<Image
 							src="/enhanced-chat-ease-logo.png"
 							alt="Chat-Ease Logo"
-							width={80}
-							height={80}
-							className="object-contain"
+							width={0}
+							height={0}
+							sizes="100vw"
+							className="w-auto h-16 object-contain"
 						/>
 						<span className="text-3xl font-bold tracking-tight text-white">
 							Chat-Ease
