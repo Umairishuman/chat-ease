@@ -57,8 +57,8 @@ export default function Register() {
 						<Image
 							src="/enhanced-chat-ease-logo.png"
 							alt="Chat-Ease Logo"
-							width={40}
-							height={40}
+							width={80}
+							height={80}
 							className="object-contain"
 						/>
 						<span className="text-3xl font-bold tracking-tight text-white">

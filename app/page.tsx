@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
@@ -13,37 +14,7 @@ export default function Home() {
       {/* Main content wrapped in global glass pane */}
       <div className="relative z-10 min-h-screen backdrop-blur-[80px]">
         
-        {/* Navigation */}
-        <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-teal-950/40 border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <Image 
-                src="/enhanced-chat-ease-logo.png" 
-                alt="Chat-Ease Logo" 
-                width={40} 
-                height={40} 
-                className="object-contain"
-              />
-              <span className="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-teal-400">
-                Chat-Ease
-              </span>
-            </Link>
-            <div className="flex gap-6 items-center">
-              <Link 
-                href="/login" 
-                className="text-sm font-semibold text-teal-100 hover:text-white transition-colors"
-              >
-                Login
-              </Link>
-              <Link 
-                href="/register" 
-                className="px-5 py-2.5 text-sm font-semibold bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white rounded-full transition-all shadow-[0_0_15px_rgba(20,184,166,0.2)] hover:shadow-[0_0_25px_rgba(20,184,166,0.4)]"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </nav>
+        <Navbar />
 
         {/* Hero Section */}
         <section className="relative pt-40 pb-24 overflow-hidden">
