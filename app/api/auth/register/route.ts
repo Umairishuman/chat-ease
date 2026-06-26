@@ -21,7 +21,7 @@ export async function POST(request: Request) {
             password: hashedPassword,
             role: role ? role : 'user'
         })
-        const secret = new TextEncoder().encode(process.env.JWT_SECRET || "your_jwt_secret");
+        const secret = new TextEncoder().encode(process.env.JWT_SECRET);
         const token = await new SignJWT({ id: newUser._id.toString(), role: newUser.role })
             .setProtectedHeader({ alg: "HS256" })
             .setExpirationTime("1d")
