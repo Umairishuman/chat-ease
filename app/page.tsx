@@ -4,123 +4,132 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-teal-950 text-teal-50 selection:bg-teal-500 selection:text-white font-sans">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-teal-950/50 border-b border-teal-800/50">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="text-2xl font-bold tracking-tight text-teal-400">
-            Chat-Ease
-          </div>
-          <div className="flex gap-4">
-            <Link 
-              href="/login" 
-              className="px-4 py-2 text-sm font-medium hover:text-teal-300 transition-colors"
-            >
-              Login
-            </Link>
-            <Link 
-              href="/register" 
-              className="px-4 py-2 text-sm font-medium bg-teal-600 hover:bg-teal-500 text-white rounded-full transition-all shadow-[0_0_15px_rgba(20,184,166,0.3)] hover:shadow-[0_0_20px_rgba(20,184,166,0.5)]"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+    <div className="relative min-h-screen bg-teal-950 text-teal-50 selection:bg-teal-500 selection:text-white font-sans overflow-hidden">
+      {/* Global Ambient Background */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-teal-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-teal-400/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+      <div className="absolute top-[40%] left-[60%] w-[40vw] h-[40vw] bg-teal-500/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        {/* Abstract Background Elements */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-600/20 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-400/10 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-900/50 border border-teal-700/50 text-teal-300 text-sm font-medium w-fit">
-              <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-              Real-time messaging evolved
+      {/* Main content wrapped in global glass pane */}
+      <div className="relative z-10 min-h-screen backdrop-blur-[80px]">
+        
+        {/* Navigation */}
+        <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-teal-950/40 border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div className="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-teal-400">
+              Chat-Ease
             </div>
-            <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight leading-tight">
-              Connect <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-teal-200">Instantly</span> With Anyone.
-            </h1>
-            <p className="text-lg text-teal-200/80 max-w-lg leading-relaxed">
-              Experience seamless, lightning-fast communication. Search handles, start chats, and never miss a message with our beautiful modern interface.
-            </p>
-            <div className="flex items-center gap-4 pt-4">
+            <div className="flex gap-6 items-center">
+              <Link 
+                href="/login" 
+                className="text-sm font-semibold text-teal-100 hover:text-white transition-colors"
+              >
+                Login
+              </Link>
               <Link 
                 href="/register" 
-                className="px-8 py-4 bg-teal-500 hover:bg-teal-400 text-teal-950 font-bold rounded-full transition-all hover:scale-105 shadow-lg shadow-teal-500/20"
+                className="px-5 py-2.5 text-sm font-semibold bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white rounded-full transition-all shadow-[0_0_15px_rgba(20,184,166,0.2)] hover:shadow-[0_0_25px_rgba(20,184,166,0.4)]"
               >
-                Start Chatting Free
-              </Link>
-              <Link 
-                href="#features" 
-                className="px-8 py-4 text-teal-200 hover:text-white font-medium transition-colors"
-              >
-                Learn More →
+                Get Started
               </Link>
             </div>
           </div>
-          
-          <div className="relative relative w-full aspect-square md:aspect-video lg:aspect-square flex justify-center items-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/40 to-transparent rounded-3xl -rotate-6 scale-105 blur-sm" />
-            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-teal-700/50 shadow-2xl shadow-teal-900/50 backdrop-blur-sm bg-teal-950/40">
-              <Image 
-                src="/hero-mockup.png" 
-                alt="Chat-Ease Application Mockup" 
-                fill
-                className="object-cover hover:scale-105 transition-transform duration-700"
-                priority
+        </nav>
+
+        {/* Hero Section */}
+        <section className="relative pt-40 pb-24 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            <div className="flex flex-col gap-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md bg-white/5 border border-white/10 text-teal-200 text-sm font-medium w-fit shadow-lg shadow-black/10">
+                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
+                Real-time messaging evolved
+              </div>
+              <h1 className="text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
+                Connect <span className="text-transparent bg-clip-text bg-gradient-to-br from-teal-200 via-teal-400 to-emerald-300 drop-shadow-sm">Instantly</span> With Anyone.
+              </h1>
+              <p className="text-xl text-teal-100/80 max-w-lg leading-relaxed font-light">
+                Experience seamless, lightning-fast communication. Search handles, start chats, and never miss a message with our beautiful modern interface.
+              </p>
+              <div className="flex flex-wrap items-center gap-5 pt-4">
+                <Link 
+                  href="/register" 
+                  className="px-8 py-4 bg-teal-500 hover:bg-teal-400 text-teal-950 font-bold rounded-full transition-all hover:scale-105 shadow-[0_0_30px_rgba(20,184,166,0.4)]"
+                >
+                  Start Chatting Free
+                </Link>
+                <Link 
+                  href="#features" 
+                  className="px-8 py-4 backdrop-blur-md bg-white/5 border border-white/10 hover:bg-white/10 text-white font-medium rounded-full transition-all hover:scale-105"
+                >
+                  Learn More →
+                </Link>
+              </div>
+            </div>
+            
+            <div className="relative w-full aspect-square lg:aspect-auto lg:h-[600px] flex justify-center items-center perspective-1000">
+              <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/30 to-emerald-400/10 rounded-3xl -rotate-6 scale-105 blur-2xl" />
+              {/* Glassy Image Container */}
+              <div className="relative w-full h-full max-h-[600px] rounded-3xl overflow-hidden backdrop-blur-xl bg-white/5 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] transform transition-transform duration-700 hover:rotate-2 hover:scale-[1.02]">
+                <Image 
+                  src="/hero-mockup.png" 
+                  alt="Chat-Ease Application Mockup" 
+                  fill
+                  className="object-cover opacity-90 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-700"
+                  priority
+                />
+                {/* Extra Glass Highlight overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/40 pointer-events-none" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section id="features" className="py-32 relative">
+          <div className="absolute inset-0 bg-teal-950/50 backdrop-blur-3xl border-y border-white/5" />
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight">Why choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-500">Chat-Ease</span>?</h2>
+              <p className="text-teal-100/70 text-lg max-w-2xl mx-auto font-light">Everything you need to keep conversations flowing smoothly, beautifully wrapped in a premium glass design.</p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              <FeatureCard 
+                icon="⚡"
+                title="Lightning Fast"
+                description="Built on websockets, your messages are delivered instantly without refreshing."
+              />
+              <FeatureCard 
+                icon="🔍"
+                title="Unique Handles"
+                description="Find friends easily using unique handles instead of sharing phone numbers."
+              />
+              <FeatureCard 
+                icon="🔔"
+                title="Stay Updated"
+                description="Unread message counts ensure you never miss an important conversation."
               />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-24 bg-black/20 border-y border-teal-900/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why choose <span className="text-teal-400">Chat-Ease</span>?</h2>
-            <p className="text-teal-200/70 max-w-2xl mx-auto">Everything you need to keep conversations flowing smoothly, beautifully designed for the best experience.</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <FeatureCard 
-              icon="⚡"
-              title="Lightning Fast"
-              description="Built on websockets, your messages are delivered instantly without refreshing."
-            />
-            <FeatureCard 
-              icon="🔍"
-              title="Unique Handles"
-              description="Find friends easily using unique handles instead of sharing phone numbers."
-            />
-            <FeatureCard 
-              icon="🔔"
-              title="Stay Updated"
-              description="Unread message counts ensure you never miss an important conversation."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 text-center text-teal-700 border-t border-teal-900/30 mt-auto">
-        <p>© {new Date().getFullYear()} Chat-Ease. All rights reserved.</p>
-      </footer>
+        {/* Footer */}
+        <footer className="py-12 relative text-center text-teal-500/60 font-light border-t border-white/5">
+          <p>© {new Date().getFullYear()} Chat-Ease. All rights reserved.</p>
+        </footer>
+      </div>
     </div>
   );
 }
 
 function FeatureCard({ icon, title, description }: { icon: string, title: string, description: string }) {
   return (
-    <div className="group p-8 rounded-2xl bg-teal-900/10 border border-teal-800/30 hover:bg-teal-900/20 hover:border-teal-700/50 transition-all duration-300">
-      <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-teal-800/50 text-2xl mb-6 group-hover:scale-110 group-hover:bg-teal-500/20 transition-all">
+    <div className="group p-8 rounded-3xl backdrop-blur-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-teal-400/50 transition-all duration-500 shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_32px_rgba(20,184,166,0.2)] hover:-translate-y-2">
+      <div className="w-14 h-14 flex items-center justify-center rounded-2xl backdrop-blur-md bg-white/10 border border-white/10 text-2xl mb-8 group-hover:scale-110 group-hover:bg-teal-500/20 group-hover:border-teal-400/30 transition-all duration-500 shadow-inner">
         {icon}
       </div>
-      <h3 className="text-xl font-bold mb-3 text-teal-100">{title}</h3>
-      <p className="text-teal-200/70 leading-relaxed">{description}</p>
+      <h3 className="text-2xl font-semibold mb-4 text-teal-50">{title}</h3>
+      <p className="text-teal-100/70 leading-relaxed font-light">{description}</p>
     </div>
   );
 }
