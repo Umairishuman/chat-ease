@@ -21,14 +21,17 @@ export default function Login() {
 			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-teal-950/40 border border-teal-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 				{/* Header / Brand Logo */}
 				<div className="flex justify-center mb-8">
-					<Link href="/" className="hover:opacity-80 transition-opacity">
+					<Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
 						<Image
 							src="/enhanced-chat-ease-logo.png"
 							alt="Chat-Ease Logo"
-							width={200}
-							height={80}
+							width={40}
+							height={40}
 							className="object-contain"
 						/>
+						<span className="text-3xl font-bold tracking-tight text-white">
+							Chat-Ease
+						</span>
 					</Link>
 				</div>
 
