@@ -82,9 +82,9 @@ export default function ChatPage() {
               </div>
             </div>
             <div className="flex items-center gap-2 text-teal-100/60">
-              <button className="p-2 hover:bg-white/10 rounded-full transition-colors hover:text-white" title="Settings">
+              <Link href="/settings" className="p-2 hover:bg-white/10 rounded-full transition-colors hover:text-white inline-block" title="Settings">
                 <Settings size={20} />
-              </button>
+              </Link>
               <button 
                 onClick={handleLogout}
                 className="p-2 hover:bg-red-500/20 text-red-400/80 hover:text-red-400 rounded-full transition-colors" 
