@@ -54,26 +54,45 @@ export default function SettingsPage() {
         setSaving(true);
         
         try {
-            // Note: Avatar upload to Cloudinary will be implemented next.
-            // For now, we only update name and handle in the database.
+            let uploadedAvatarUrl = avatarPreview; // Default to existing
+
+            // Upload to Cloudinary if a new file was selected
+            if (avatarFile) {
+                toast.loading("Uploading avatar...", { id: "upload-toast" });
+                const formData = new FormData();
+                formData.append("file", avatarFile);
+                formData.append("upload_preset", "chat-ease-profilepics");
+
+                const cloudRes = await fetch("https://api.cloudinary.com/v1_1/dfr57apl2/image/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const cloudData = await cloudRes.json();
+                
+                if (!cloudRes.ok) {
+                    throw new Error(cloudData.error?.message || "Failed to upload image");
+                }
+                
+                uploadedAvatarUrl = cloudData.secure_url;
+                toast.success("Avatar uploaded!", { id: "upload-toast" });
+            }
+
+            // Update profile in our database
             const res = await fetch("/api/user/update", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, handle }),
+                body: JSON.stringify({ name, handle, avatar: uploadedAvatarUrl }),
             });
             
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Failed to update profile");
             
             toast.success("Profile updated successfully!");
-            
-            if (avatarFile) {
-                toast.success("Avatar selected! (Cloudinary upload coming soon)");
-            }
-
             router.push("/chat");
         } catch (err: any) {
             toast.error(err.message || "Failed to update profile");
+            toast.dismiss("upload-toast");
         } finally {
             setSaving(false);
         }
