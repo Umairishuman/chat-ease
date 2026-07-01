@@ -28,7 +28,7 @@ export default function ForgotPassword() {
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Failed to request code");
 
-			toast.success("If that email is registered, a reset code was sent.");
+			toast.success("Reset code was sent.");
 			setStep(2);
 		} catch (err: any) {
 			toast.error(err.message || "An error occurred");

@@ -16,8 +16,7 @@ export async function POST(req: Request) {
         const user = await User.findOne({ email });
 
         if (!user) {
-            // We return success even if user not found to prevent email enumeration
-            return NextResponse.json({ message: 'If that email exists, a code has been sent.' }, { status: 200 });
+            return NextResponse.json({ error: 'No account found with that email address' }, { status: 404 });
         }
 
         // Generate 6 digit code
@@ -58,7 +57,7 @@ export async function POST(req: Request) {
 
         await transporter.sendMail(mailOptions);
 
-        return NextResponse.json({ message: 'If that email exists, a code has been sent.' }, { status: 200 });
+        return NextResponse.json({ message: 'Reset code sent successfully' }, { status: 200 });
     } catch (error: any) {
         console.error('Forgot password error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
