@@ -23,7 +23,7 @@ export async function PUT(req: Request) {
             return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
         }
 
-        const { name, handle } = await req.json();
+        const { name, handle, avatar } = await req.json();
 
         if (!name || !handle) {
             return NextResponse.json({ error: 'Name and handle are required' }, { status: 400 });
@@ -37,9 +37,14 @@ export async function PUT(req: Request) {
             return NextResponse.json({ error: 'This handle is already taken' }, { status: 400 });
         }
 
+        const updateData: any = { name, handle };
+        if (avatar) {
+            updateData.avatar = avatar;
+        }
+
         const updatedUser = await User.findByIdAndUpdate(
             payload.userId,
-            { name, handle },
+            updateData,
             { new: true }
         ).select('-password');
 
