@@ -82,17 +82,9 @@ export default function Login() {
 					</div>
 
 					<div>
-						<div className="flex justify-between items-center mb-2">
-							<label className="block text-sm font-medium text-teal-100/80">
-								Password
-							</label>
-							<Link
-								href="/forgot-password"
-								className="text-xs text-teal-400 hover:text-teal-300 transition-colors"
-							>
-								Forgot password?
-							</Link>
-						</div>
+						<label className="block text-sm font-medium text-teal-100/80 mb-2">
+							Password
+						</label>
 						<input
 							type="password"
 							value={password}
@@ -101,6 +93,29 @@ export default function Login() {
 							placeholder="••••••••"
 							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
 						/>
+						
+						<div className="flex items-center justify-between mt-4">
+							<label className="flex items-center gap-2 cursor-pointer group">
+								<div className="relative flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 group-hover:border-teal-400 transition-colors overflow-hidden">
+									<input type="checkbox" className="peer sr-only" />
+									<div className="absolute inset-0 bg-teal-500 opacity-0 peer-checked:opacity-100 transition-opacity flex items-center justify-center">
+										<svg className="w-3.5 h-3.5 text-teal-950 transform scale-50 peer-checked:scale-100 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+											<path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+										</svg>
+									</div>
+								</div>
+								<span className="text-sm text-teal-100/70 group-hover:text-teal-100 transition-colors">
+									Remember me
+								</span>
+							</label>
+
+							<Link
+								href="/forgot-password"
+								className="text-xs text-teal-400 hover:text-teal-300 transition-colors"
+							>
+								Forgot password?
+							</Link>
+						</div>
 					</div>
 
 					<button
