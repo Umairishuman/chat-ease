@@ -1,36 +1,40 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Send, Settings, LogOut, MoreVertical, Paperclip, Check, CheckCheck, MessageSquarePlus } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-// Mock Data
-const MOCK_USER = {
-  name: "Jane Doe",
-  handle: "@janedoe",
-  avatar: "https://i.pravatar.cc/150?u=jane",
-};
-
-const MOCK_CHATS = [
-  { id: 1, name: "Alice Smith", handle: "@alice", avatar: "https://i.pravatar.cc/150?u=alice", lastMessage: "That sounds great! See you then.", time: "10:30 AM", unread: 2 },
-  { id: 2, name: "Bob Johnson", handle: "@bobj", avatar: "https://i.pravatar.cc/150?u=bob", lastMessage: "Can you send me the files?", time: "Yesterday", unread: 0 },
-  { id: 3, name: "Charlie Brown", handle: "@charlie", avatar: "https://i.pravatar.cc/150?u=charlie", lastMessage: "Haha exactly 😂", time: "Mon", unread: 0 },
-];
-
-const MOCK_MESSAGES = [
-  { id: 1, senderId: 1, text: "Hey! Are we still on for tomorrow?", time: "10:15 AM" },
-  { id: 2, senderId: 'me', text: "Yes absolutely! Let's meet at the coffee shop.", time: "10:20 AM", status: "read" },
-  { id: 3, senderId: 1, text: "Perfect. I'll bring the documents we discussed.", time: "10:25 AM" },
-  { id: 4, senderId: 1, text: "That sounds great! See you then.", time: "10:30 AM" },
-];
-
 export default function ChatPage() {
   const [selectedChat, setSelectedChat] = useState<number | null>(null);
   const [messageInput, setMessageInput] = useState("");
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [chats, setChats] = useState<any[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (!res.ok) {
+          router.push("/login");
+          return;
+        }
+        const data = await res.json();
+        setCurrentUser(data.user);
+      } catch (err) {
+        console.error("Failed to fetch user", err);
+        router.push("/login");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [router]);
 
   const handleLogout = async () => {
     try {
@@ -43,7 +47,15 @@ export default function ChatPage() {
     }
   };
 
-  const activeChatDetails = MOCK_CHATS.find((c) => c.id === selectedChat);
+  const activeChatDetails = chats.find((c) => c.id === selectedChat);
+
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-teal-950 font-sans">
+        <div className="w-12 h-12 border-4 border-teal-500/20 border-t-teal-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-screen flex bg-teal-950 text-teal-50 font-sans overflow-hidden selection:bg-teal-500 selection:text-white">
@@ -62,11 +74,11 @@ export default function ChatPage() {
           <div className="p-5 border-b border-white/5 flex items-center justify-between bg-white/5">
             <div className="flex items-center gap-3">
               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-teal-500/50">
-                <Image src={MOCK_USER.avatar} alt="My Avatar" fill className="object-cover" />
+                <Image src={currentUser?.avatar || `https://i.pravatar.cc/150?u=${currentUser?.email}`} alt="My Avatar" fill className="object-cover" />
               </div>
               <div>
-                <h2 className="font-semibold text-white">{MOCK_USER.name}</h2>
-                <p className="text-xs text-teal-200/60">{MOCK_USER.handle}</p>
+                <h2 className="font-semibold text-white">{currentUser?.name}</h2>
+                <p className="text-xs text-teal-200/60">{currentUser?.handle}</p>
               </div>
             </div>
             <div className="flex items-center gap-2 text-teal-100/60">
@@ -97,7 +109,7 @@ export default function ChatPage() {
 
           {/* Chats List */}
           <div className="flex-1 overflow-y-auto px-2 pb-4 space-y-1 custom-scrollbar">
-            {MOCK_CHATS.map((chat) => (
+            {chats.map((chat) => (
               <div
                 key={chat.id}
                 onClick={() => setSelectedChat(chat.id)}
@@ -176,7 +188,7 @@ export default function ChatPage() {
 
               {/* Messages Area */}
               <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
-                {MOCK_MESSAGES.map((msg, index) => {
+                {messages.map((msg, index) => {
                   const isMe = msg.senderId === 'me';
                   return (
                     <div key={msg.id} className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
