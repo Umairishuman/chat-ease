@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { GoogleLogin, useGoogleOneTapLogin, CredentialResponse } from '@react-oauth/google';
 
 export default function Login() {
 	const [email, setEmail] = useState("");
@@ -12,6 +13,32 @@ export default function Login() {
 	const [rememberMe, setRememberMe] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
+
+	const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
+		if (!credentialResponse.credential) return;
+		setLoading(true);
+		try {
+			const res = await fetch("/api/auth/google", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ credential: credentialResponse.credential }),
+			});
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.error || "Google login failed");
+
+			toast.success("Login successful!");
+			router.push("/chat");
+		} catch (err: any) {
+			toast.error(err.message || "Failed to authenticate with Google");
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useGoogleOneTapLogin({
+		onSuccess: handleGoogleSuccess,
+		onError: () => toast.error('Google One-Tap failed'),
+	});
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -141,6 +168,28 @@ export default function Login() {
 					>
 						{loading ? "Signing In..." : "Sign In"}
 					</button>
+
+					<div className="relative my-6">
+						<div className="absolute inset-0 flex items-center">
+							<div className="w-full border-t border-white/10"></div>
+						</div>
+						<div className="relative flex justify-center text-sm">
+							<span className="px-2 text-teal-100/50 relative z-10 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-xl before:bg-[#061818]/80 before:rounded-lg">
+								Or continue with
+							</span>
+						</div>
+					</div>
+
+					<div className="flex justify-center w-full [&>div]:w-full">
+						<GoogleLogin
+							onSuccess={handleGoogleSuccess}
+							onError={() => toast.error("Google Login failed")}
+							theme="filled_black"
+							shape="pill"
+							size="large"
+							text="continue_with"
+						/>
+					</div>
 				</form>
 
 				<div className="mt-8 text-center text-sm text-teal-100/50">

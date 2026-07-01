@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 };
 
 import { Toaster } from "react-hot-toast";
+import { Providers } from "./components/Providers";
 
 export default function RootLayout({
     children,
@@ -17,24 +18,26 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                {children}
-                <Toaster 
-                    position="bottom-right" 
-                    toastOptions={{
-                        style: {
-                            background: '#042f2e', 
-                            color: '#ccfbf1', 
-                            border: '1px solid rgba(20, 184, 166, 0.2)',
-                            backdropFilter: 'blur(10px)',
-                        },
-                        success: {
-                            iconTheme: {
-                                primary: '#14b8a6',
-                                secondary: '#042f2e',
+                <Providers>
+                    {children}
+                    <Toaster 
+                        position="bottom-right" 
+                        toastOptions={{
+                            style: {
+                                background: '#042f2e', 
+                                color: '#ccfbf1', 
+                                border: '1px solid rgba(20, 184, 166, 0.2)',
+                                backdropFilter: 'blur(10px)',
                             },
-                        },
-                    }} 
-                />
+                            success: {
+                                iconTheme: {
+                                    primary: '#14b8a6',
+                                    secondary: '#042f2e',
+                                },
+                            },
+                        }} 
+                    />
+                </Providers>
             </body>
         </html>
     );
