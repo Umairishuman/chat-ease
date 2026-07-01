@@ -3,3 +3,19 @@
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
+
+# Chat-Ease Development Guidelines
+
+## 1. Theming and UI Consistency
+- Always adhere to the established project theme (e.g., dark teal aesthetics, glassmorphism, glowing accents, and smooth transitions).
+- Re-use existing Tailwind utility classes and color palettes to maintain a unified, polished visual identity across all components.
+
+## 2. Reusable and Modular Code
+- Write clean, highly reusable code. If a UI element or logic block is used in more than one place, extract it into a shared component or utility function.
+- **Do not write long, monolithic components.** Keep components short, modular, and focused on a single responsibility.
+- Break down complex pages into smaller sub-components (placed in the appropriate `components/` directory) to keep the codebase easy to read, navigate, and maintain over time.
+
+## 3. Code Quality
+- Ensure strict TypeScript typing.
+- Handle loading, error, and success states gracefully to ensure a robust user experience.
+- Maintain consistent formatting and keep logic clean and predictable.
