@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Send, Settings, LogOut, MoreVertical, Paperclip, Check, CheckCheck } from "lucide-react";
+import { Search, Send, Settings, LogOut, MoreVertical, Paperclip, Check, CheckCheck, MessageSquarePlus } from "lucide-react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 // Mock Data
 const MOCK_USER = {
@@ -28,6 +30,18 @@ const MOCK_MESSAGES = [
 export default function ChatPage() {
   const [selectedChat, setSelectedChat] = useState<number | null>(null);
   const [messageInput, setMessageInput] = useState("");
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/auth/logout", { method: "POST" });
+      if (!res.ok) throw new Error("Failed to logout");
+      toast.success("Logged out successfully");
+      router.push("/login");
+    } catch (err) {
+      toast.error("An error occurred during logout");
+    }
+  };
 
   const activeChatDetails = MOCK_CHATS.find((c) => c.id === selectedChat);
 
@@ -56,8 +70,15 @@ export default function ChatPage() {
               </div>
             </div>
             <div className="flex items-center gap-2 text-teal-100/60">
-              <button className="p-2 hover:bg-white/10 rounded-full transition-colors hover:text-white">
+              <button className="p-2 hover:bg-white/10 rounded-full transition-colors hover:text-white" title="Settings">
                 <Settings size={20} />
+              </button>
+              <button 
+                onClick={handleLogout}
+                className="p-2 hover:bg-red-500/20 text-red-400/80 hover:text-red-400 rounded-full transition-colors" 
+                title="Log Out"
+              >
+                <LogOut size={20} />
               </button>
             </div>
           </div>
@@ -122,9 +143,15 @@ export default function ChatPage() {
                 <Image src="/enhanced-chat-ease-logo.png" alt="Logo" width={0} height={0} sizes="100vw" className="w-auto h-12 opacity-80" />
               </div>
               <h2 className="text-3xl font-bold text-white mb-3 tracking-tight">Your Messages</h2>
-              <p className="text-teal-100/60 max-w-md font-light">
+              <p className="text-teal-100/60 max-w-md font-light mb-8">
                 Select a chat from the sidebar or search for a friend's handle to start a new conversation.
               </p>
+              
+              <button className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-teal-500 hover:bg-teal-400 text-teal-950 font-bold rounded-2xl transition-all shadow-[0_0_40px_rgba(20,184,166,0.3)] hover:shadow-[0_0_60px_rgba(20,184,166,0.5)] hover:-translate-y-1 overflow-hidden">
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                <MessageSquarePlus className="w-5 h-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                <span className="relative z-10 text-lg tracking-wide">Start Chatting</span>
+              </button>
             </div>
           ) : (
             // Active Chat
