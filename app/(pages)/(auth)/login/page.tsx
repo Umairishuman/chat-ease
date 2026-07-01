@@ -4,22 +4,33 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [rememberMe, setRememberMe] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
 		try {
-			// Mocking an API call for now until real auth is wired
-			await new Promise(resolve => setTimeout(resolve, 1000));
+			const res = await fetch("/api/auth/login", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email, password, rememberMe }),
+			});
+			
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.error || "Failed to login");
+
 			toast.success("Login successful!");
+			router.push("/chat");
 		} catch (err: any) {
-			toast.error("Invalid credentials.");
+			toast.error(err.message || "Invalid credentials.");
 		} finally {
 			setLoading(false);
 		}
@@ -97,7 +108,12 @@ export default function Login() {
 						<div className="flex items-center justify-between mt-4">
 							<label className="flex items-center gap-2 cursor-pointer group">
 								<div className="relative flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 group-hover:border-teal-400 transition-colors overflow-hidden">
-									<input type="checkbox" className="peer sr-only" />
+									<input 
+										type="checkbox" 
+										className="peer sr-only" 
+										checked={rememberMe}
+										onChange={(e) => setRememberMe(e.target.checked)}
+									/>
 									<div className="absolute inset-0 bg-teal-500 opacity-0 peer-checked:opacity-100 transition-opacity flex items-center justify-center">
 										<svg className="w-3.5 h-3.5 text-teal-950 transform scale-50 peer-checked:scale-100 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
 											<path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
