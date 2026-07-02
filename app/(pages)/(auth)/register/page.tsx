@@ -49,7 +49,7 @@ export default function Register() {
 			<div className="absolute inset-0 bg-[#061818]/80 backdrop-blur-md z-0" />
 
 			{/* Form Container */}
-			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-teal-950/40 border border-teal-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-primary-950/40 border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 				{/* Header / Brand Logo */}
 				<div className="flex justify-center mb-6">
 					<Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -70,13 +70,13 @@ export default function Register() {
 				<h1 className="text-2xl font-bold mb-2 text-white text-center tracking-tight">
 					Create an account
 				</h1>
-				<p className="text-teal-100/60 font-light mb-8 text-center text-sm">
+				<p className="text-primary-100/60 font-light mb-8 text-center text-sm">
 					Join us and start connecting instantly.
 				</p>
 
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div>
-						<label className="block text-sm font-medium text-teal-100/80 mb-1.5">
+						<label className="block text-sm font-medium text-primary-100/80 mb-1.5">
 							Full Name
 						</label>
 						<input
@@ -86,12 +86,12 @@ export default function Register() {
 							onChange={handleChange}
 							required
 							placeholder="Jane Doe"
-							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
 						/>
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-teal-100/80 mb-1.5">
+						<label className="block text-sm font-medium text-primary-100/80 mb-1.5">
 							Unique Handle
 						</label>
 						<input
@@ -101,12 +101,12 @@ export default function Register() {
 							onChange={handleChange}
 							required
 							placeholder="@janedoe"
-							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
 						/>
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-teal-100/80 mb-1.5">
+						<label className="block text-sm font-medium text-primary-100/80 mb-1.5">
 							Email Address
 						</label>
 						<input
@@ -116,12 +116,12 @@ export default function Register() {
 							onChange={handleChange}
 							required
 							placeholder="you@example.com"
-							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
 						/>
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-teal-100/80 mb-1.5">
+						<label className="block text-sm font-medium text-primary-100/80 mb-1.5">
 							Password
 						</label>
 						<input
@@ -131,24 +131,24 @@ export default function Register() {
 							onChange={handleChange}
 							required
 							placeholder="••••••••"
-							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
 						/>
 					</div>
 
 					<button
 						type="submit"
 						disabled={loading}
-						className="w-full py-4 mt-6 bg-teal-500 hover:bg-teal-400 disabled:opacity-50 disabled:hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all shadow-lg shadow-teal-500/20 active:scale-[0.98]"
+						className="w-full py-4 mt-6 bg-primary-500 hover:bg-primary-400 disabled:opacity-50 disabled:hover:bg-primary-500 text-primary-950 font-bold rounded-xl transition-all shadow-lg shadow-primary-500/20 active:scale-[0.98]"
 					>
 						{loading ? "Registering..." : "Sign Up"}
 					</button>
 				</form>
 
-				<div className="mt-8 text-center text-sm text-teal-100/50">
+				<div className="mt-8 text-center text-sm text-primary-100/50">
 					Already have an account?{" "}
 					<Link
 						href="/login"
-						className="text-teal-400 hover:text-teal-300 font-medium transition-colors"
+						className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
 					>
 						Sign in
 					</Link>

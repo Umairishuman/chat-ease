@@ -5,11 +5,11 @@ import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-teal-950 text-teal-50 selection:bg-teal-500 selection:text-white font-sans overflow-hidden">
+    <div className="relative min-h-screen bg-primary-950 text-primary-50 selection:bg-primary-500 selection:text-white font-sans overflow-hidden">
       {/* Global Ambient Background */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-teal-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-teal-400/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-      <div className="absolute top-[40%] left-[60%] w-[40vw] h-[40vw] bg-teal-500/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-primary-400/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+      <div className="absolute top-[40%] left-[60%] w-[40vw] h-[40vw] bg-primary-500/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
 
       {/* Main content wrapped in global glass pane */}
       <div className="relative z-10 min-h-screen backdrop-blur-[80px]">
@@ -20,20 +20,20 @@ export default function Home() {
         <section className="relative pt-40 pb-24 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div className="flex flex-col gap-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md bg-white/5 border border-white/10 text-teal-200 text-sm font-medium w-fit shadow-lg shadow-black/10">
-                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md bg-white/5 border border-white/10 text-primary-200 text-sm font-medium w-fit shadow-lg shadow-black/10">
+                <span className="w-2 h-2 rounded-full bg-primary-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
                 Real-time messaging evolved
               </div>
               <h1 className="text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
-                Connect <span className="text-transparent bg-clip-text bg-gradient-to-br from-teal-200 via-teal-400 to-emerald-300 drop-shadow-sm">Instantly</span> With Anyone.
+                Connect <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-200 via-primary-400 to-emerald-300 drop-shadow-sm">Instantly</span> With Anyone.
               </h1>
-              <p className="text-xl text-teal-100/80 max-w-lg leading-relaxed font-light">
+              <p className="text-xl text-primary-100/80 max-w-lg leading-relaxed font-light">
                 Experience seamless, lightning-fast communication. Search handles, start chats, and never miss a message with our beautiful modern interface.
               </p>
               <div className="flex flex-wrap items-center gap-5 pt-4">
                 <Link 
                   href="/register" 
-                  className="px-8 py-4 bg-teal-500 hover:bg-teal-400 text-teal-950 font-bold rounded-full transition-all hover:scale-105 shadow-[0_0_30px_rgba(20,184,166,0.4)]"
+                  className="px-8 py-4 bg-primary-500 hover:bg-primary-400 text-primary-950 font-bold rounded-full transition-all hover:scale-105 shadow-[0_0_30px_rgba(20,184,166,0.4)]"
                 >
                   Start Chatting Free
                 </Link>
@@ -47,7 +47,7 @@ export default function Home() {
             </div>
             
             <div className="relative w-full aspect-square lg:aspect-auto lg:h-[600px] flex justify-center items-center perspective-1000">
-              <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/30 to-emerald-400/10 rounded-3xl -rotate-6 scale-105 blur-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary-600/30 to-emerald-400/10 rounded-3xl -rotate-6 scale-105 blur-2xl" />
               {/* Glassy Image Container */}
               <div className="relative w-full h-full max-h-[600px] rounded-3xl overflow-hidden backdrop-blur-xl bg-white/5 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] transform transition-transform duration-700 hover:rotate-2 hover:scale-[1.02]">
                 <Image 
@@ -67,11 +67,11 @@ export default function Home() {
 
         {/* Features Section */}
         <section id="features" className="py-32 relative">
-          <div className="absolute inset-0 bg-teal-950/50 backdrop-blur-3xl border-y border-white/5" />
+          <div className="absolute inset-0 bg-primary-950/50 backdrop-blur-3xl border-y border-white/5" />
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="text-center mb-20">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight">Why choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-500">Chat-Ease</span>?</h2>
-              <p className="text-teal-100/70 text-lg max-w-2xl mx-auto font-light">Everything you need to keep conversations flowing smoothly, beautifully wrapped in a premium glass design.</p>
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight">Why choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-primary-500">Chat-Ease</span>?</h2>
+              <p className="text-primary-100/70 text-lg max-w-2xl mx-auto font-light">Everything you need to keep conversations flowing smoothly, beautifully wrapped in a premium glass design.</p>
             </div>
             
             <div className="grid md:grid-cols-3 gap-8">
@@ -95,7 +95,7 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="py-12 relative text-center text-teal-500/60 font-light border-t border-white/5">
+        <footer className="py-12 relative text-center text-primary-500/60 font-light border-t border-white/5">
           <p>© {new Date().getFullYear()} Chat-Ease. All rights reserved.</p>
         </footer>
       </div>
@@ -105,12 +105,12 @@ export default function Home() {
 
 function FeatureCard({ icon, title, description }: { icon: string, title: string, description: string }) {
   return (
-    <div className="group p-8 rounded-3xl backdrop-blur-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-teal-400/50 transition-all duration-500 shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_32px_rgba(20,184,166,0.2)] hover:-translate-y-2">
-      <div className="w-14 h-14 flex items-center justify-center rounded-2xl backdrop-blur-md bg-white/10 border border-white/10 text-2xl mb-8 group-hover:scale-110 group-hover:bg-teal-500/20 group-hover:border-teal-400/30 transition-all duration-500 shadow-inner">
+    <div className="group p-8 rounded-3xl backdrop-blur-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-primary-400/50 transition-all duration-500 shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_32px_rgba(20,184,166,0.2)] hover:-translate-y-2">
+      <div className="w-14 h-14 flex items-center justify-center rounded-2xl backdrop-blur-md bg-white/10 border border-white/10 text-2xl mb-8 group-hover:scale-110 group-hover:bg-primary-500/20 group-hover:border-primary-400/30 transition-all duration-500 shadow-inner">
         {icon}
       </div>
-      <h3 className="text-2xl font-semibold mb-4 text-teal-50">{title}</h3>
-      <p className="text-teal-100/70 leading-relaxed font-light">{description}</p>
+      <h3 className="text-2xl font-semibold mb-4 text-primary-50">{title}</h3>
+      <p className="text-primary-100/70 leading-relaxed font-light">{description}</p>
     </div>
   );
 }

@@ -7,8 +7,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # Chat-Ease Development Guidelines
 
 ## 1. Theming and UI Consistency
-- Always adhere to the established project theme (e.g., dark teal aesthetics, glassmorphism, glowing accents, and smooth transitions).
-- Re-use existing Tailwind utility classes and color palettes to maintain a unified, polished visual identity across all components.
+- Always adhere to the established project theme (e.g., dark aesthetics, glassmorphism, glowing accents, and smooth transitions).
+- **CRITICAL RULE**: Do not use hardcoded Tailwind color classes (like `teal-500` or `blue-900`). Instead, always use the semantic `primary-*` utility classes (e.g., `bg-primary-950`, `text-primary-400`).
+- The semantic theme colors are defined in `app/globals.css` using CSS variables. Changing the variables in `globals.css` should automatically update the theme across the entire application without needing to modify components.
 
 ## 2. Reusable and Modular Code
 - Write clean, highly reusable code. If a UI element or logic block is used in more than one place, extract it into a shared component or utility function.

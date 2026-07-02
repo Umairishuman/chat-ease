@@ -79,7 +79,7 @@ export default function Login() {
 			<div className="absolute inset-0 bg-[#061818]/80 backdrop-blur-md z-0" />
 
 			{/* Form Container */}
-			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-teal-950/40 border border-teal-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-primary-950/40 border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 				{/* Header / Brand Logo */}
 				<div className="flex justify-center mb-8">
 					<Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -100,13 +100,13 @@ export default function Login() {
 				<h1 className="text-2xl font-bold mb-2 text-white text-center tracking-tight">
 					Welcome back
 				</h1>
-				<p className="text-teal-100/60 font-light mb-8 text-center text-sm">
+				<p className="text-primary-100/60 font-light mb-8 text-center text-sm">
 					Sign in to continue your conversations.
 				</p>
 
 				<form onSubmit={handleSubmit} className="space-y-5">
 					<div>
-						<label className="block text-sm font-medium text-teal-100/80 mb-2">
+						<label className="block text-sm font-medium text-primary-100/80 mb-2">
 							Email Address
 						</label>
 						<input
@@ -115,12 +115,12 @@ export default function Login() {
 							onChange={(e) => setEmail(e.target.value)}
 							required
 							placeholder="you@example.com"
-							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
 						/>
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-teal-100/80 mb-2">
+						<label className="block text-sm font-medium text-primary-100/80 mb-2">
 							Password
 						</label>
 						<input
@@ -129,32 +129,32 @@ export default function Login() {
 							onChange={(e) => setPassword(e.target.value)}
 							required
 							placeholder="••••••••"
-							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
 						/>
 						
 						<div className="flex items-center justify-between mt-4">
 							<label className="flex items-center gap-2 cursor-pointer group">
-								<div className="relative flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 group-hover:border-teal-400 transition-colors overflow-hidden">
+								<div className="relative flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 group-hover:border-primary-400 transition-colors overflow-hidden">
 									<input 
 										type="checkbox" 
 										className="peer sr-only" 
 										checked={rememberMe}
 										onChange={(e) => setRememberMe(e.target.checked)}
 									/>
-									<div className="absolute inset-0 bg-teal-500 opacity-0 peer-checked:opacity-100 transition-opacity flex items-center justify-center">
-										<svg className="w-3.5 h-3.5 text-teal-950 transform scale-50 peer-checked:scale-100 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+									<div className="absolute inset-0 bg-primary-500 opacity-0 peer-checked:opacity-100 transition-opacity flex items-center justify-center">
+										<svg className="w-3.5 h-3.5 text-primary-950 transform scale-50 peer-checked:scale-100 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
 											<path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
 										</svg>
 									</div>
 								</div>
-								<span className="text-sm text-teal-100/70 group-hover:text-teal-100 transition-colors">
+								<span className="text-sm text-primary-100/70 group-hover:text-primary-100 transition-colors">
 									Remember me
 								</span>
 							</label>
 
 							<Link
 								href="/forgot-password"
-								className="text-xs text-teal-400 hover:text-teal-300 transition-colors"
+								className="text-xs text-primary-400 hover:text-primary-300 transition-colors"
 							>
 								Forgot password?
 							</Link>
@@ -164,7 +164,7 @@ export default function Login() {
 					<button
 						type="submit"
 						disabled={loading}
-						className="w-full py-4 mt-6 bg-teal-500 hover:bg-teal-400 disabled:opacity-50 disabled:hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all shadow-lg shadow-teal-500/20 active:scale-[0.98]"
+						className="w-full py-4 mt-6 bg-primary-500 hover:bg-primary-400 disabled:opacity-50 disabled:hover:bg-primary-500 text-primary-950 font-bold rounded-xl transition-all shadow-lg shadow-primary-500/20 active:scale-[0.98]"
 					>
 						{loading ? "Signing In..." : "Sign In"}
 					</button>
@@ -174,7 +174,7 @@ export default function Login() {
 							<div className="w-full border-t border-white/10"></div>
 						</div>
 						<div className="relative flex justify-center text-sm">
-							<span className="px-2 text-teal-100/50 relative z-10 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-xl before:bg-[#061818]/80 before:rounded-lg">
+							<span className="px-2 text-primary-100/50 relative z-10 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-xl before:bg-[#061818]/80 before:rounded-lg">
 								Or continue with
 							</span>
 						</div>
@@ -192,11 +192,11 @@ export default function Login() {
 					</div>
 				</form>
 
-				<div className="mt-8 text-center text-sm text-teal-100/50">
+				<div className="mt-8 text-center text-sm text-primary-100/50">
 					Don't have an account?{" "}
 					<Link
 						href="/register"
-						className="text-teal-400 hover:text-teal-300 font-medium transition-colors"
+						className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
 					>
 						Create an account
 					</Link>

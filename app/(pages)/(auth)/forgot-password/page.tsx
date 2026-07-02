@@ -76,7 +76,7 @@ export default function ForgotPassword() {
 			<div className="absolute inset-0 bg-[#061818]/80 backdrop-blur-md z-0" />
 
 			{/* Form Container */}
-			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-teal-950/40 border border-teal-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-primary-950/40 border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 				{/* Header / Brand Logo */}
 				<div className="flex justify-center mb-8">
 					<Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -97,14 +97,14 @@ export default function ForgotPassword() {
 				<h1 className="text-2xl font-bold mb-2 text-white text-center tracking-tight">
 					Reset Password
 				</h1>
-				<p className="text-teal-100/60 font-light mb-8 text-center text-sm">
+				<p className="text-primary-100/60 font-light mb-8 text-center text-sm">
 					{step === 1 ? "Enter your email to receive a reset code." : "Enter the code sent to your email and a new password."}
 				</p>
 
 				{step === 1 ? (
 					<form onSubmit={handleRequestCode} className="space-y-5">
 						<div>
-							<label className="block text-sm font-medium text-teal-100/80 mb-2">
+							<label className="block text-sm font-medium text-primary-100/80 mb-2">
 								Email Address
 							</label>
 							<input
@@ -113,14 +113,14 @@ export default function ForgotPassword() {
 								onChange={(e) => setEmail(e.target.value)}
 								required
 								placeholder="you@example.com"
-								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
+								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
 							/>
 						</div>
 
 						<button
 							type="submit"
 							disabled={loading || !email}
-							className="w-full py-4 mt-6 bg-teal-500 hover:bg-teal-400 disabled:opacity-50 disabled:hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all shadow-lg shadow-teal-500/20 active:scale-[0.98]"
+							className="w-full py-4 mt-6 bg-primary-500 hover:bg-primary-400 disabled:opacity-50 disabled:hover:bg-primary-500 text-primary-950 font-bold rounded-xl transition-all shadow-lg shadow-primary-500/20 active:scale-[0.98]"
 						>
 							{loading ? "Sending Code..." : "Send Reset Code"}
 						</button>
@@ -128,7 +128,7 @@ export default function ForgotPassword() {
 				) : (
 					<form onSubmit={handleResetPassword} className="space-y-5">
 						<div>
-							<label className="block text-sm font-medium text-teal-100/80 mb-2">
+							<label className="block text-sm font-medium text-primary-100/80 mb-2">
 								Email Address
 							</label>
 							<input
@@ -139,7 +139,7 @@ export default function ForgotPassword() {
 							/>
 						</div>
 						<div>
-							<label className="block text-sm font-medium text-teal-100/80 mb-2">
+							<label className="block text-sm font-medium text-primary-100/80 mb-2">
 								6-Digit Code
 							</label>
 							<input
@@ -149,12 +149,12 @@ export default function ForgotPassword() {
 								required
 								maxLength={6}
 								placeholder="123456"
-								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all tracking-[0.5em] text-center font-mono text-xl"
+								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all tracking-[0.5em] text-center font-mono text-xl"
 							/>
 						</div>
 
 						<div>
-							<label className="block text-sm font-medium text-teal-100/80 mb-2">
+							<label className="block text-sm font-medium text-primary-100/80 mb-2">
 								New Password
 							</label>
 							<input
@@ -163,25 +163,25 @@ export default function ForgotPassword() {
 								onChange={(e) => setNewPassword(e.target.value)}
 								required
 								placeholder="••••••••"
-								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-teal-100/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white/10 transition-all"
+								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
 							/>
 						</div>
 
 						<button
 							type="submit"
 							disabled={loading || !code || !newPassword}
-							className="w-full py-4 mt-6 bg-teal-500 hover:bg-teal-400 disabled:opacity-50 disabled:hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all shadow-lg shadow-teal-500/20 active:scale-[0.98]"
+							className="w-full py-4 mt-6 bg-primary-500 hover:bg-primary-400 disabled:opacity-50 disabled:hover:bg-primary-500 text-primary-950 font-bold rounded-xl transition-all shadow-lg shadow-primary-500/20 active:scale-[0.98]"
 						>
 							{loading ? "Resetting..." : "Reset Password"}
 						</button>
 					</form>
 				)}
 
-				<div className="mt-8 text-center text-sm text-teal-100/50">
+				<div className="mt-8 text-center text-sm text-primary-100/50">
 					Remembered your password?{" "}
 					<Link
 						href="/login"
-						className="text-teal-400 hover:text-teal-300 font-medium transition-colors"
+						className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
 					>
 						Back to login
 					</Link>
