@@ -15,20 +15,20 @@ export default function Navbar() {
             sizes="15vw"
             className="w-auto h-10 object-contain"
           />
-          <span className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-400">
+          <span className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400">
             Chat-Ease
           </span>
         </Link>
         <div className="flex gap-6 items-center">
           <Link 
             href="/login" 
-            className="text-base font-semibold text-primary-100 hover:text-white transition-colors"
+            className="text-base font-semibold text-muted hover:text-foreground transition-colors"
           >
             Login
           </Link>
           <Link 
             href="/register" 
-            className="px-6 py-3 text-base font-semibold bg-surface backdrop-blur-md border border-border hover:bg-white/20 text-white rounded-full transition-all shadow-[0_0_15px_rgba(20,184,166,0.2)] hover:shadow-[0_0_25px_rgba(20,184,166,0.4)]"
+            className="px-6 py-3 text-base font-semibold bg-surface backdrop-blur-md border border-border hover:bg-surface-hover text-foreground rounded-full transition-all shadow-[0_0_15px_rgba(20,184,166,0.2)] hover:shadow-[0_0_25px_rgba(20,184,166,0.4)]"
           >
             Get Started
           </Link>
