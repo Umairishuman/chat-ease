@@ -100,23 +100,23 @@ export default function SettingsPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-primary-950 font-sans">
+            <div className="min-h-screen flex items-center justify-center bg-background font-sans">
                 <div className="w-12 h-12 border-4 border-primary-500/20 border-t-primary-500 rounded-full animate-spin"></div>
             </div>
         );
     }
 
     return (
-        <div className="relative min-h-screen flex items-center justify-center font-sans overflow-hidden bg-primary-950">
+        <div className="relative min-h-screen flex items-center justify-center font-sans overflow-hidden bg-background">
             {/* Global Ambient Background */}
             <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
             <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-primary-400/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
 
-            <div className="relative z-10 w-full max-w-lg p-8 md:p-10 backdrop-blur-xl bg-primary-950/40 border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)] m-4">
+            <div className="relative z-10 w-full max-w-lg p-8 md:p-10 backdrop-blur-xl bg-surface border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)] m-4">
                 
                 {/* Header */}
                 <div className="flex items-center mb-8 relative">
-                    <Link href="/chat" className="absolute left-0 p-2 text-primary-100/60 hover:text-white hover:bg-white/10 rounded-full transition-colors">
+                    <Link href="/chat" className="absolute left-0 p-2 text-muted hover:text-white hover:bg-surface-hover rounded-full transition-colors">
                         <ArrowLeft size={24} />
                     </Link>
                     <h1 className="text-2xl font-bold text-white text-center tracking-tight w-full">
@@ -132,8 +132,8 @@ export default function SettingsPage() {
                                 {avatarPreview ? (
                                     <Image src={avatarPreview} alt="Avatar Preview" fill className="object-cover" />
                                 ) : (
-                                    <div className="w-full h-full bg-white/10 flex items-center justify-center">
-                                        <User size={40} className="text-primary-100/50" />
+                                    <div className="w-full h-full bg-surface flex items-center justify-center">
+                                        <User size={40} className="text-muted" />
                                     </div>
                                 )}
                                 
@@ -150,7 +150,7 @@ export default function SettingsPage() {
                                 className="hidden" 
                             />
                         </div>
-                        <p className="text-sm text-primary-100/50 mt-4 text-center">Click the image to upload a new avatar</p>
+                        <p className="text-sm text-muted mt-4 text-center">Click the image to upload a new avatar</p>
                     </div>
 
                     {/* Name Input */}
@@ -159,14 +159,14 @@ export default function SettingsPage() {
                             Full Name
                         </label>
                         <div className="relative">
-                            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-100/40" size={18} />
+                            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" size={18} />
                             <input
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
                                 placeholder="Your Name"
-                                className="w-full pl-11 pr-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+                                className="w-full pl-11 pr-5 py-3.5 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
                             />
                         </div>
                     </div>
@@ -177,14 +177,14 @@ export default function SettingsPage() {
                             Username / Handle
                         </label>
                         <div className="relative">
-                            <AtSign className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-100/40" size={18} />
+                            <AtSign className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" size={18} />
                             <input
                                 type="text"
                                 value={handle}
                                 onChange={(e) => setHandle(e.target.value)}
                                 required
                                 placeholder="yourhandle"
-                                className="w-full pl-11 pr-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+                                className="w-full pl-11 pr-5 py-3.5 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
                             />
                         </div>
                     </div>

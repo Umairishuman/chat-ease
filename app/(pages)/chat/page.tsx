@@ -51,14 +51,14 @@ export default function ChatPage() {
 
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center bg-primary-950 font-sans">
+      <div className="h-screen flex items-center justify-center bg-background font-sans">
         <div className="w-12 h-12 border-4 border-primary-500/20 border-t-primary-500 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="relative h-screen flex bg-primary-950 text-primary-50 font-sans overflow-hidden selection:bg-primary-500 selection:text-white">
+    <div className="relative h-screen flex bg-background text-foreground font-sans overflow-hidden selection:bg-primary-500 selection:text-white">
       {/* Global Ambient Background */}
       <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-primary-400/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
@@ -68,10 +68,10 @@ export default function ChatPage() {
       <div className="relative z-10 flex w-full h-full p-4 gap-4 backdrop-blur-3xl">
         
         {/* Sidebar */}
-        <div className="w-full max-w-md flex flex-col h-full rounded-3xl backdrop-blur-xl bg-[#042f2e]/60 border border-white/10 shadow-2xl overflow-hidden">
+        <div className="w-full max-w-md flex flex-col h-full rounded-3xl backdrop-blur-xl bg-surface border border-border shadow-2xl overflow-hidden">
           
           {/* Sidebar Header (Current User) */}
-          <div className="p-5 border-b border-white/5 flex items-center justify-between bg-white/5">
+          <div className="p-5 border-b border-border flex items-center justify-between bg-surface">
             <div className="flex items-center gap-3">
               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary-500/50">
                 <Image src={currentUser?.avatar || `https://i.pravatar.cc/150?u=${currentUser?.email}`} alt="My Avatar" fill className="object-cover" />
@@ -81,8 +81,8 @@ export default function ChatPage() {
                 <p className="text-xs text-primary-200/60">{currentUser?.handle}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-primary-100/60">
-              <Link href="/settings" className="p-2 hover:bg-white/10 rounded-full transition-colors hover:text-white inline-block" title="Settings">
+            <div className="flex items-center gap-2 text-muted">
+              <Link href="/settings" className="p-2 hover:bg-surface-hover rounded-full transition-colors hover:text-white inline-block" title="Settings">
                 <Settings size={20} />
               </Link>
               <button 
@@ -98,11 +98,11 @@ export default function ChatPage() {
           {/* Search Bar */}
           <div className="p-4">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-100/40" size={18} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" size={18} />
               <input
                 type="text"
                 placeholder="Search handles..."
-                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-sm text-white placeholder-primary-100/40 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all"
+                className="w-full bg-surface border border-border rounded-2xl py-3 pl-12 pr-4 text-sm text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all"
               />
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function ChatPage() {
                 className={`p-3 rounded-2xl cursor-pointer transition-all flex items-center gap-4 ${
                   selectedChat === chat.id
                     ? "bg-primary-500/20 border border-primary-500/30 shadow-inner"
-                    : "hover:bg-white/5 border border-transparent"
+                    : "hover:bg-surface border border-transparent"
                 }`}
               >
                 <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
@@ -126,11 +126,11 @@ export default function ChatPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-baseline mb-1">
-                    <h3 className="font-medium text-primary-50 truncate">{chat.name}</h3>
-                    <span className="text-xs text-primary-100/50 flex-shrink-0 ml-2">{chat.time}</span>
+                    <h3 className="font-medium text-foreground truncate">{chat.name}</h3>
+                    <span className="text-xs text-muted flex-shrink-0 ml-2">{chat.time}</span>
                   </div>
                   <div className="flex justify-between items-center gap-2">
-                    <p className={`text-sm truncate ${chat.unread > 0 ? "text-primary-100 font-medium" : "text-primary-100/50"}`}>
+                    <p className={`text-sm truncate ${chat.unread > 0 ? "text-primary-100 font-medium" : "text-muted"}`}>
                       {chat.lastMessage}
                     </p>
                     {chat.unread > 0 && (
@@ -146,7 +146,7 @@ export default function ChatPage() {
         </div>
 
         {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col h-full rounded-3xl backdrop-blur-xl bg-[#042f2e]/40 border border-white/10 shadow-2xl overflow-hidden relative">
+        <div className="flex-1 flex flex-col h-full rounded-3xl backdrop-blur-xl bg-surface border border-border shadow-2xl overflow-hidden relative">
           
           {selectedChat === null ? (
             // Empty State
@@ -155,7 +155,7 @@ export default function ChatPage() {
                 <Image src="/enhanced-chat-ease-logo.png" alt="Logo" width={0} height={0} sizes="100vw" className="w-auto h-12 opacity-80" />
               </div>
               <h2 className="text-3xl font-bold text-white mb-3 tracking-tight">Your Messages</h2>
-              <p className="text-primary-100/60 max-w-md font-light mb-8">
+              <p className="text-muted max-w-md font-light mb-8">
                 Select a chat from the sidebar or search for a friend's handle to start a new conversation.
               </p>
               
@@ -169,7 +169,7 @@ export default function ChatPage() {
             // Active Chat
             <>
               {/* Chat Header */}
-              <div className="p-4 px-6 border-b border-white/5 bg-white/5 flex justify-between items-center backdrop-blur-md sticky top-0 z-10">
+              <div className="p-4 px-6 border-b border-border bg-surface flex justify-between items-center backdrop-blur-md sticky top-0 z-10">
                 <div className="flex items-center gap-4">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden">
                     <Image src={activeChatDetails?.avatar || ""} alt="Avatar" fill className="object-cover" />
@@ -179,8 +179,8 @@ export default function ChatPage() {
                     <p className="text-xs text-primary-200/60">{activeChatDetails?.handle}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 text-primary-100/60">
-                  <button className="p-2 hover:bg-white/10 rounded-full transition-colors hover:text-white">
+                <div className="flex items-center gap-3 text-muted">
+                  <button className="p-2 hover:bg-surface-hover rounded-full transition-colors hover:text-white">
                     <MoreVertical size={20} />
                   </button>
                 </div>
@@ -197,7 +197,7 @@ export default function ChatPage() {
                           className={`px-5 py-3 rounded-2xl shadow-lg relative group ${
                             isMe
                               ? "bg-gradient-to-br from-primary-500 to-primary-600 text-primary-950 rounded-br-sm"
-                              : "bg-white/10 text-primary-50 border border-white/5 backdrop-blur-md rounded-bl-sm"
+                              : "bg-surface text-foreground border border-border backdrop-blur-md rounded-bl-sm"
                           }`}
                         >
                           <p className={`text-[15px] leading-relaxed ${isMe ? "font-medium" : "font-light"}`}>
@@ -205,11 +205,11 @@ export default function ChatPage() {
                           </p>
                         </div>
                         <div className="flex items-center gap-1.5 px-1 mt-0.5">
-                          <span className="text-[11px] text-primary-100/40 font-medium tracking-wide uppercase">
+                          <span className="text-[11px] text-muted font-medium tracking-wide uppercase">
                             {msg.time}
                           </span>
                           {isMe && (
-                            <span className="text-primary-500/80">
+                            <span className="text-foreground0/80">
                               {msg.status === "read" ? <CheckCheck size={14} /> : <Check size={14} />}
                             </span>
                           )}
@@ -221,9 +221,9 @@ export default function ChatPage() {
               </div>
 
               {/* Message Input Container */}
-              <div className="p-4 bg-white/5 border-t border-white/5 backdrop-blur-lg">
-                <div className="flex items-end gap-3 bg-[#021817]/50 border border-white/10 rounded-[2rem] p-2 pr-2.5 shadow-inner">
-                  <button className="p-3 text-primary-100/40 hover:text-primary-400 hover:bg-white/5 rounded-full transition-colors flex-shrink-0">
+              <div className="p-4 bg-surface border-t border-border backdrop-blur-lg">
+                <div className="flex items-end gap-3 bg-[#021817]/50 border border-border rounded-[2rem] p-2 pr-2.5 shadow-inner">
+                  <button className="p-3 text-muted hover:text-primary-400 hover:bg-surface rounded-full transition-colors flex-shrink-0">
                     <Paperclip size={20} />
                   </button>
                   <textarea
@@ -231,7 +231,7 @@ export default function ChatPage() {
                     placeholder="Type a message..."
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
-                    className="flex-1 bg-transparent text-white placeholder-primary-100/30 resize-none outline-none py-3 max-h-32 min-h-[48px] custom-scrollbar text-[15px]"
+                    className="flex-1 bg-transparent text-foreground placeholder-muted resize-none outline-none py-3 max-h-32 min-h-[48px] custom-scrollbar text-[15px]"
                   />
                   <button 
                     disabled={!messageInput.trim()}

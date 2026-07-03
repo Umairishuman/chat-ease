@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-primary-950/40 border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-surface border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
       <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity">
           <Image 
@@ -28,7 +28,7 @@ export default function Navbar() {
           </Link>
           <Link 
             href="/register" 
-            className="px-6 py-3 text-base font-semibold bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white rounded-full transition-all shadow-[0_0_15px_rgba(20,184,166,0.2)] hover:shadow-[0_0_25px_rgba(20,184,166,0.4)]"
+            className="px-6 py-3 text-base font-semibold bg-surface backdrop-blur-md border border-border hover:bg-white/20 text-white rounded-full transition-all shadow-[0_0_15px_rgba(20,184,166,0.2)] hover:shadow-[0_0_25px_rgba(20,184,166,0.4)]"
           >
             Get Started
           </Link>

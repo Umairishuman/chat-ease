@@ -73,10 +73,10 @@ export default function ForgotPassword() {
 			/>
 			
 			{/* Overlay to darken and tint the background */}
-			<div className="absolute inset-0 bg-[#061818]/80 backdrop-blur-md z-0" />
+			<div className="absolute inset-0 bg-background backdrop-blur-md z-0" />
 
 			{/* Form Container */}
-			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-primary-950/40 border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-surface border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 				{/* Header / Brand Logo */}
 				<div className="flex justify-center mb-8">
 					<Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -97,7 +97,7 @@ export default function ForgotPassword() {
 				<h1 className="text-2xl font-bold mb-2 text-white text-center tracking-tight">
 					Reset Password
 				</h1>
-				<p className="text-primary-100/60 font-light mb-8 text-center text-sm">
+				<p className="text-muted font-light mb-8 text-center text-sm">
 					{step === 1 ? "Enter your email to receive a reset code." : "Enter the code sent to your email and a new password."}
 				</p>
 
@@ -113,7 +113,7 @@ export default function ForgotPassword() {
 								onChange={(e) => setEmail(e.target.value)}
 								required
 								placeholder="you@example.com"
-								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+								className="w-full px-5 py-3.5 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
 							/>
 						</div>
 
@@ -135,7 +135,7 @@ export default function ForgotPassword() {
 								type="email"
 								value={email}
 								disabled
-								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white opacity-50 cursor-not-allowed"
+								className="w-full px-5 py-3.5 rounded-xl bg-surface border border-border text-white opacity-50 cursor-not-allowed"
 							/>
 						</div>
 						<div>
@@ -149,7 +149,7 @@ export default function ForgotPassword() {
 								required
 								maxLength={6}
 								placeholder="123456"
-								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all tracking-[0.5em] text-center font-mono text-xl"
+								className="w-full px-5 py-3.5 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all tracking-[0.5em] text-center font-mono text-xl"
 							/>
 						</div>
 
@@ -163,7 +163,7 @@ export default function ForgotPassword() {
 								onChange={(e) => setNewPassword(e.target.value)}
 								required
 								placeholder="••••••••"
-								className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+								className="w-full px-5 py-3.5 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
 							/>
 						</div>
 
@@ -177,7 +177,7 @@ export default function ForgotPassword() {
 					</form>
 				)}
 
-				<div className="mt-8 text-center text-sm text-primary-100/50">
+				<div className="mt-8 text-center text-sm text-muted">
 					Remembered your password?{" "}
 					<Link
 						href="/login"

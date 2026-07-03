@@ -46,10 +46,10 @@ export default function Register() {
 			/>
 			
 			{/* Overlay to darken and tint the background */}
-			<div className="absolute inset-0 bg-[#061818]/80 backdrop-blur-md z-0" />
+			<div className="absolute inset-0 bg-background backdrop-blur-md z-0" />
 
 			{/* Form Container */}
-			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-primary-950/40 border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-surface border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 				{/* Header / Brand Logo */}
 				<div className="flex justify-center mb-6">
 					<Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -70,7 +70,7 @@ export default function Register() {
 				<h1 className="text-2xl font-bold mb-2 text-white text-center tracking-tight">
 					Create an account
 				</h1>
-				<p className="text-primary-100/60 font-light mb-8 text-center text-sm">
+				<p className="text-muted font-light mb-8 text-center text-sm">
 					Join us and start connecting instantly.
 				</p>
 
@@ -86,7 +86,7 @@ export default function Register() {
 							onChange={handleChange}
 							required
 							placeholder="Jane Doe"
-							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
 						/>
 					</div>
 
@@ -101,7 +101,7 @@ export default function Register() {
 							onChange={handleChange}
 							required
 							placeholder="@janedoe"
-							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
 						/>
 					</div>
 
@@ -116,7 +116,7 @@ export default function Register() {
 							onChange={handleChange}
 							required
 							placeholder="you@example.com"
-							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
 						/>
 					</div>
 
@@ -131,7 +131,7 @@ export default function Register() {
 							onChange={handleChange}
 							required
 							placeholder="••••••••"
-							className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
 						/>
 					</div>
 
@@ -144,7 +144,7 @@ export default function Register() {
 					</button>
 				</form>
 
-				<div className="mt-8 text-center text-sm text-primary-100/50">
+				<div className="mt-8 text-center text-sm text-muted">
 					Already have an account?{" "}
 					<Link
 						href="/login"

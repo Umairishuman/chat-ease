@@ -76,10 +76,10 @@ export default function Login() {
 			/>
 			
 			{/* Overlay to darken and tint the background */}
-			<div className="absolute inset-0 bg-[#061818]/80 backdrop-blur-md z-0" />
+			<div className="absolute inset-0 bg-background backdrop-blur-md z-0" />
 
 			{/* Form Container */}
-			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-primary-950/40 border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+			<div className="relative z-10 w-full max-w-md p-8 md:p-10 backdrop-blur-xl bg-surface border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 				{/* Header / Brand Logo */}
 				<div className="flex justify-center mb-8">
 					<Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -100,7 +100,7 @@ export default function Login() {
 				<h1 className="text-2xl font-bold mb-2 text-white text-center tracking-tight">
 					Welcome back
 				</h1>
-				<p className="text-primary-100/60 font-light mb-8 text-center text-sm">
+				<p className="text-muted font-light mb-8 text-center text-sm">
 					Sign in to continue your conversations.
 				</p>
 
@@ -115,7 +115,7 @@ export default function Login() {
 							onChange={(e) => setEmail(e.target.value)}
 							required
 							placeholder="you@example.com"
-							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3.5 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
 						/>
 					</div>
 
@@ -129,12 +129,12 @@ export default function Login() {
 							onChange={(e) => setPassword(e.target.value)}
 							required
 							placeholder="••••••••"
-							className="w-full px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-primary-100/30 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white/10 transition-all"
+							className="w-full px-5 py-3.5 rounded-xl bg-surface border border-border text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-surface transition-all"
 						/>
 						
 						<div className="flex items-center justify-between mt-4">
 							<label className="flex items-center gap-2 cursor-pointer group">
-								<div className="relative flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 group-hover:border-primary-400 transition-colors overflow-hidden">
+								<div className="relative flex items-center justify-center w-5 h-5 rounded border border-border bg-surface group-hover:border-primary-400 transition-colors overflow-hidden">
 									<input 
 										type="checkbox" 
 										className="peer sr-only" 
@@ -147,7 +147,7 @@ export default function Login() {
 										</svg>
 									</div>
 								</div>
-								<span className="text-sm text-primary-100/70 group-hover:text-primary-100 transition-colors">
+								<span className="text-sm text-muted group-hover:text-primary-100 transition-colors">
 									Remember me
 								</span>
 							</label>
@@ -171,10 +171,10 @@ export default function Login() {
 
 					<div className="relative my-6">
 						<div className="absolute inset-0 flex items-center">
-							<div className="w-full border-t border-white/10"></div>
+							<div className="w-full border-t border-border"></div>
 						</div>
 						<div className="relative flex justify-center text-sm">
-							<span className="px-2 text-primary-100/50 relative z-10 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-xl before:bg-[#061818]/80 before:rounded-lg">
+							<span className="px-2 text-muted relative z-10 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-xl before:bg-background before:rounded-lg">
 								Or continue with
 							</span>
 						</div>
@@ -192,7 +192,7 @@ export default function Login() {
 					</div>
 				</form>
 
-				<div className="mt-8 text-center text-sm text-primary-100/50">
+				<div className="mt-8 text-center text-sm text-muted">
 					Don't have an account?{" "}
 					<Link
 						href="/register"
