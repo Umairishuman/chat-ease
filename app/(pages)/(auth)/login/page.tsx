@@ -91,13 +91,13 @@ export default function Login() {
 							sizes="100vw"
 							className="w-auto h-16 object-contain"
 						/>
-						<span className="text-3xl font-bold tracking-tight text-white">
+						<span className="text-3xl font-bold tracking-tight text-foreground">
 							Chat-Ease
 						</span>
 					</Link>
 				</div>
 
-				<h1 className="text-2xl font-bold mb-2 text-white text-center tracking-tight">
+				<h1 className="text-2xl font-bold mb-2 text-foreground text-center tracking-tight">
 					Welcome back
 				</h1>
 				<p className="text-muted font-light mb-8 text-center text-sm">

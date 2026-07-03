@@ -88,13 +88,13 @@ export default function ForgotPassword() {
 							sizes="100vw"
 							className="w-auto h-16 object-contain"
 						/>
-						<span className="text-3xl font-bold tracking-tight text-white">
+						<span className="text-3xl font-bold tracking-tight text-foreground">
 							Chat-Ease
 						</span>
 					</Link>
 				</div>
 
-				<h1 className="text-2xl font-bold mb-2 text-white text-center tracking-tight">
+				<h1 className="text-2xl font-bold mb-2 text-foreground text-center tracking-tight">
 					Reset Password
 				</h1>
 				<p className="text-muted font-light mb-8 text-center text-sm">
@@ -135,7 +135,7 @@ export default function ForgotPassword() {
 								type="email"
 								value={email}
 								disabled
-								className="w-full px-5 py-3.5 rounded-xl bg-surface border border-border text-white opacity-50 cursor-not-allowed"
+								className="w-full px-5 py-3.5 rounded-xl bg-surface border border-border text-foreground opacity-50 cursor-not-allowed"
 							/>
 						</div>
 						<div>

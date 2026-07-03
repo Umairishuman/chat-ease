@@ -6,10 +6,7 @@ import Navbar from "./components/Navbar";
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-primary-500 selection:text-white font-sans overflow-hidden">
-      {/* Global Ambient Background */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-primary-400/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-      <div className="absolute top-[40%] left-[60%] w-[40vw] h-[40vw] bg-primary-500/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+      {/* Global Ambient Background Removed */}
 
       {/* Main content wrapped in global glass pane */}
       <div className="relative z-10 min-h-screen backdrop-blur-[80px]">
@@ -39,7 +36,7 @@ export default function Home() {
                 </Link>
                 <Link 
                   href="#features" 
-                  className="px-8 py-4 backdrop-blur-md bg-surface border border-border hover:bg-surface-hover text-white font-medium rounded-full transition-all hover:scale-105"
+                  className="px-8 py-4 backdrop-blur-md bg-surface border border-border hover:bg-surface-hover text-foreground font-medium rounded-full transition-all hover:scale-105"
                 >
                   Learn More →
                 </Link>
@@ -95,7 +92,7 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="py-12 relative text-center text-foreground0/60 font-light border-t border-border">
+        <footer className="py-12 relative text-center text-muted font-light border-t border-border">
           <p>© {new Date().getFullYear()} Chat-Ease. All rights reserved.</p>
         </footer>
       </div>

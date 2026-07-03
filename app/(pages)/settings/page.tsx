@@ -108,18 +108,16 @@ export default function SettingsPage() {
 
     return (
         <div className="relative min-h-screen flex items-center justify-center font-sans overflow-hidden bg-background">
-            {/* Global Ambient Background */}
-            <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-primary-400/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
+            {/* Global Ambient Background Removed */}
 
             <div className="relative z-10 w-full max-w-lg p-8 md:p-10 backdrop-blur-xl bg-surface border border-primary-500/20 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)] m-4">
                 
                 {/* Header */}
                 <div className="flex items-center mb-8 relative">
-                    <Link href="/chat" className="absolute left-0 p-2 text-muted hover:text-white hover:bg-surface-hover rounded-full transition-colors">
+                    <Link href="/chat" className="absolute left-0 p-2 text-muted hover:text-foreground hover:bg-surface-hover rounded-full transition-colors">
                         <ArrowLeft size={24} />
                     </Link>
-                    <h1 className="text-2xl font-bold text-white text-center tracking-tight w-full">
+                    <h1 className="text-2xl font-bold text-foreground text-center tracking-tight w-full">
                         Profile Settings
                     </h1>
                 </div>
@@ -155,7 +153,7 @@ export default function SettingsPage() {
 
                     {/* Name Input */}
                     <div>
-                        <label className="block text-sm font-medium text-primary-100/80 mb-2">
+                        <label className="block text-sm font-medium text-foreground mb-2">
                             Full Name
                         </label>
                         <div className="relative">
@@ -173,7 +171,7 @@ export default function SettingsPage() {
 
                     {/* Handle Input */}
                     <div>
-                        <label className="block text-sm font-medium text-primary-100/80 mb-2">
+                        <label className="block text-sm font-medium text-foreground mb-2">
                             Username / Handle
                         </label>
                         <div className="relative">

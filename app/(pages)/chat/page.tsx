@@ -59,10 +59,7 @@ export default function ChatPage() {
 
   return (
     <div className="relative h-screen flex bg-background text-foreground font-sans overflow-hidden selection:bg-primary-500 selection:text-white">
-      {/* Global Ambient Background */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-primary-400/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
-      <div className="absolute top-[40%] left-[60%] w-[40vw] h-[40vw] bg-primary-500/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-0" />
+      {/* Global Ambient Background Removed */}
 
       {/* Main Layout Container */}
       <div className="relative z-10 flex w-full h-full p-4 gap-4 backdrop-blur-3xl">
@@ -77,12 +74,12 @@ export default function ChatPage() {
                 <Image src={currentUser?.avatar || `https://i.pravatar.cc/150?u=${currentUser?.email}`} alt="My Avatar" fill className="object-cover" />
               </div>
               <div>
-                <h2 className="font-semibold text-white">{currentUser?.name}</h2>
+                <h2 className="font-semibold text-foreground">{currentUser?.name}</h2>
                 <p className="text-xs text-primary-200/60">{currentUser?.handle}</p>
               </div>
             </div>
             <div className="flex items-center gap-2 text-muted">
-              <Link href="/settings" className="p-2 hover:bg-surface-hover rounded-full transition-colors hover:text-white inline-block" title="Settings">
+              <Link href="/settings" className="p-2 hover:bg-surface-hover rounded-full transition-colors hover:text-foreground inline-block" title="Settings">
                 <Settings size={20} />
               </Link>
               <button 
@@ -154,7 +151,7 @@ export default function ChatPage() {
               <div className="w-24 h-24 rounded-full bg-primary-500/10 flex items-center justify-center mb-6 border border-primary-500/20 shadow-[0_0_50px_rgba(20,184,166,0.15)]">
                 <Image src="/enhanced-chat-ease-logo.png" alt="Logo" width={0} height={0} sizes="100vw" className="w-auto h-12 opacity-80" />
               </div>
-              <h2 className="text-3xl font-bold text-white mb-3 tracking-tight">Your Messages</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-3 tracking-tight">Your Messages</h2>
               <p className="text-muted max-w-md font-light mb-8">
                 Select a chat from the sidebar or search for a friend's handle to start a new conversation.
               </p>
@@ -175,12 +172,12 @@ export default function ChatPage() {
                     <Image src={activeChatDetails?.avatar || ""} alt="Avatar" fill className="object-cover" />
                   </div>
                   <div>
-                    <h2 className="font-semibold text-lg text-white leading-tight">{activeChatDetails?.name}</h2>
+                    <h2 className="font-semibold text-lg text-foreground leading-tight">{activeChatDetails?.name}</h2>
                     <p className="text-xs text-primary-200/60">{activeChatDetails?.handle}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 text-muted">
-                  <button className="p-2 hover:bg-surface-hover rounded-full transition-colors hover:text-white">
+                  <button className="p-2 hover:bg-surface-hover rounded-full transition-colors hover:text-foreground">
                     <MoreVertical size={20} />
                   </button>
                 </div>
@@ -196,8 +193,8 @@ export default function ChatPage() {
                         <div
                           className={`px-5 py-3 rounded-2xl shadow-lg relative group ${
                             isMe
-                              ? "bg-gradient-to-br from-primary-500 to-primary-600 text-primary-950 rounded-br-sm"
-                              : "bg-surface text-foreground border border-border backdrop-blur-md rounded-bl-sm"
+                              ? "bg-chat-sender text-chat-sender-text rounded-br-sm"
+                              : "bg-chat-receiver text-chat-receiver-text border border-border rounded-bl-sm"
                           }`}
                         >
                           <p className={`text-[15px] leading-relaxed ${isMe ? "font-medium" : "font-light"}`}>
@@ -209,7 +206,7 @@ export default function ChatPage() {
                             {msg.time}
                           </span>
                           {isMe && (
-                            <span className="text-foreground0/80">
+                            <span className="text-muted">
                               {msg.status === "read" ? <CheckCheck size={14} /> : <Check size={14} />}
                             </span>
                           )}
@@ -222,7 +219,7 @@ export default function ChatPage() {
 
               {/* Message Input Container */}
               <div className="p-4 bg-surface border-t border-border backdrop-blur-lg">
-                <div className="flex items-end gap-3 bg-[#021817]/50 border border-border rounded-[2rem] p-2 pr-2.5 shadow-inner">
+                <div className="flex items-end gap-3 bg-surface border border-border rounded-[2rem] p-2 pr-2.5 shadow-inner">
                   <button className="p-3 text-muted hover:text-primary-400 hover:bg-surface rounded-full transition-colors flex-shrink-0">
                     <Paperclip size={20} />
                   </button>
