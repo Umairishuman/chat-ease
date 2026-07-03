@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Search, Send, Settings, LogOut, MoreVertical, Paperclip, Check, CheckCheck, MessageSquarePlus } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import SearchModal from "../../components/SearchModal";
 
 export default function ChatPage() {
   const [selectedChat, setSelectedChat] = useState<number | null>(null);
@@ -15,6 +16,22 @@ export default function ChatPage() {
   const [chats, setChats] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
   const router = useRouter();
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  const handleStartChat = (user: any) => {
+    const newChat = {
+      id: Date.now(),
+      name: user.name,
+      handle: user.handle,
+      avatar: user.avatar,
+      lastMessage: "Started a new conversation",
+      time: "Just now",
+      unread: 0
+    };
+    setChats(prev => [newChat, ...prev]);
+    setSelectedChat(newChat.id);
+    setMessages([]);
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -65,6 +82,7 @@ export default function ChatPage() {
       <div className="relative z-10 flex w-full h-full p-4 gap-4 backdrop-blur-3xl">
         
         {/* Sidebar */}
+        {chats.length > 0 && (
         <div className="w-full max-w-md flex flex-col h-full rounded-3xl backdrop-blur-xl bg-surface border border-border shadow-2xl overflow-hidden">
           
           {/* Sidebar Header (Current User) */}
@@ -99,7 +117,7 @@ export default function ChatPage() {
               <input
                 type="text"
                 placeholder="Search handles..."
-                className="w-full bg-surface border border-border rounded-2xl py-3 pl-12 pr-4 text-sm text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all"
+                readOnly onClick={() => setIsSearchModalOpen(true)} className="w-full bg-surface border border-border rounded-2xl py-3 pl-12 pr-4 text-sm text-foreground placeholder-muted cursor-pointer focus:outline-none transition-all hover:bg-surface-hover"
               />
             </div>
           </div>
@@ -141,13 +159,41 @@ export default function ChatPage() {
             ))}
           </div>
         </div>
+        )}
 
         {/* Main Chat Area */}
         <div className="flex-1 flex flex-col h-full rounded-3xl backdrop-blur-xl bg-surface border border-border shadow-2xl overflow-hidden relative">
           
           {selectedChat === null ? (
             // Empty State
-            <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
+            <div className="flex-1 flex flex-col h-full relative">
+              {chats.length === 0 && (
+                <div className="p-5 border-b border-border flex items-center justify-between bg-surface absolute top-0 w-full rounded-t-3xl z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary-500/50">
+                      <Image src={currentUser?.avatar || `https://i.pravatar.cc/150?u=${currentUser?.email}`} alt="My Avatar" fill className="object-cover" />
+                    </div>
+                    <div>
+                      <h2 className="font-semibold text-foreground">{currentUser?.name}</h2>
+                      <p className="text-xs text-primary-200/60">{currentUser?.handle}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted">
+                    <Link href="/settings" className="p-2 hover:bg-surface-hover rounded-full transition-colors hover:text-foreground inline-block" title="Settings">
+                      <Settings size={20} />
+                    </Link>
+                    <button 
+                      onClick={handleLogout}
+                      className="p-2 hover:bg-red-500/20 text-red-400/80 hover:text-red-400 rounded-full transition-colors" 
+                      title="Log Out"
+                    >
+                      <LogOut size={20} />
+                    </button>
+                  </div>
+                </div>
+              )}
+              
+              <div className="flex-1 flex flex-col items-center justify-center text-center p-8 mt-16">
               <div className="w-24 h-24 rounded-full bg-primary-500/10 flex items-center justify-center mb-6 border border-primary-500/20 shadow-[0_0_50px_rgba(20,184,166,0.15)]">
                 <Image src="/enhanced-chat-ease-logo.png" alt="Logo" width={0} height={0} sizes="100vw" className="w-auto h-12 opacity-80" />
               </div>
@@ -156,11 +202,12 @@ export default function ChatPage() {
                 Select a chat from the sidebar or search for a friend's handle to start a new conversation.
               </p>
               
-              <button className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary-500 hover:bg-primary-400 text-primary-950 font-bold rounded-2xl transition-all shadow-[0_0_40px_rgba(20,184,166,0.3)] hover:shadow-[0_0_60px_rgba(20,184,166,0.5)] hover:-translate-y-1 overflow-hidden">
+              <button onClick={() => setIsSearchModalOpen(true)} className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary-500 hover:bg-primary-400 text-primary-950 font-bold rounded-2xl transition-all shadow-[0_0_40px_rgba(20,184,166,0.3)] hover:shadow-[0_0_60px_rgba(20,184,166,0.5)] hover:-translate-y-1 overflow-hidden">
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
                 <MessageSquarePlus className="w-5 h-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
                 <span className="relative z-10 text-lg tracking-wide">Start Chatting</span>
               </button>
+              </div>
             </div>
           ) : (
             // Active Chat
@@ -242,6 +289,12 @@ export default function ChatPage() {
           )}
         </div>
       </div>
+
+      <SearchModal 
+        isOpen={isSearchModalOpen} 
+        onClose={() => setIsSearchModalOpen(false)} 
+        onSelectUser={handleStartChat} 
+      />
 
       <style jsx global>{`
         /* Custom Scrollbar for Chat Areas */
