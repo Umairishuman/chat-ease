@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* Primary Teal Palette */
   --color-primary-50: #f0fdfa;
   --color-primary-100: #ccfbf1;
   --color-primary-200: #99f6e4;
@@ -12,4 +13,20 @@
   --color-primary-800: #115e59;
   --color-primary-900: #134e4a;
   --color-primary-950: #042f2e;
+
+  /* Semantic Theme Variables (Light Theme: Teal + White) */
+  --color-background: #f8fafc; /* Slate 50 - Very subtle off-white */
+  --color-foreground: #0f172a; /* Slate 900 - Almost black for text */
+  
+  --color-surface: rgba(255, 255, 255, 0.7); /* Frosted glass */
+  --color-surface-hover: rgba(255, 255, 255, 0.9);
+  
+  --color-border: rgba(226, 232, 240, 0.5); /* Slate 200 with opacity */
+  --color-muted: #64748b; /* Slate 500 for secondary text */
+  
+  /* Chat Specific */
+  --color-chat-sender: var(--color-primary-500);
+  --color-chat-sender-text: #ffffff;
+  --color-chat-receiver: #ffffff;
+  --color-chat-receiver-text: #0f172a;
 }
