@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import SearchModal from "../../components/SearchModal";
 import EmojiPicker, { EmojiClickData, Theme } from 'emoji-picker-react';
+import { io, Socket } from 'socket.io-client';
 
 export default function ChatPage() {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
@@ -22,6 +23,12 @@ export default function ChatPage() {
   const router = useRouter();
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const socketRef = useRef<Socket | null>(null);
+  const selectedChatRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    selectedChatRef.current = selectedChat;
+  }, [selectedChat]);
 
   const fetchChats = async () => {
     try {
@@ -55,6 +62,44 @@ export default function ChatPage() {
     };
     fetchUserAndChats();
   }, [router]);
+
+  useEffect(() => {
+    if (currentUser && !socketRef.current) {
+      const socketInitializer = async () => {
+        await fetch('/api/socket');
+        
+        socketRef.current = io(undefined, {
+          path: '/api/socket',
+        });
+
+        socketRef.current.on('connect', () => {
+          socketRef.current?.emit('register', currentUser._id);
+        });
+
+        socketRef.current.on('receive_message', (data: any) => {
+          const { message, chatId } = data;
+          
+          if (selectedChatRef.current === chatId) {
+            setMessages(prev => [...prev, message]);
+            scrollToBottom();
+            markChatAsRead(chatId);
+          }
+          
+          // Always refresh chats to update last message and unread counts
+          fetchChats();
+        });
+      };
+      
+      socketInitializer();
+    }
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
+  }, [currentUser]);
 
   useEffect(() => {
     if (selectedChat) {
@@ -153,6 +198,15 @@ export default function ChatPage() {
         // Replace temp message with real one from server
         setMessages(prev => prev.map(m => m._id === tempMessage._id ? data.message : m));
         fetchChats(); // Update last message in sidebar
+        
+        // Emit to socket
+        if (socketRef.current && activeOtherParticipant) {
+          socketRef.current.emit('send_message', {
+            receiverId: activeOtherParticipant._id,
+            message: data.message,
+            chatId: selectedChat
+          });
+        }
       } else {
         toast.error("Failed to send message");
         // Remove temp message if failed
