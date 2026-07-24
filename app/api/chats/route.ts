@@ -18,7 +18,7 @@ export async function GET(req: Request) {
         const chats = await Chat.find({ participants: user.userId })
             .populate({
                 path: 'participants',
-                select: 'name handle avatarUrl',
+                select: 'name handle avatar email',
                 model: User
             })
             .populate({
@@ -28,7 +28,17 @@ export async function GET(req: Request) {
             .sort({ updatedAt: -1 })
             .lean();
 
-        return NextResponse.json({ chats }, { status: 200 });
+        // Filter out empty chats for the receiver
+        // If a chat has no last message, only show it to the person who created it (participants[0])
+        const filteredChats = chats.filter((chat: any) => {
+            if (chat.lastMessage) return true;
+            if (chat.participants && chat.participants.length > 0) {
+                return chat.participants[0]._id.toString() === user.userId;
+            }
+            return false;
+        });
+
+        return NextResponse.json({ chats: filteredChats }, { status: 200 });
 
     } catch (error: any) {
         console.error('Fetch chats error:', error);
@@ -61,7 +71,7 @@ export async function POST(req: Request) {
         const existingChat = await Chat.findOne({
             participants: { $all: [user.userId, participantId], $size: 2 }
         })
-        .populate({ path: 'participants', select: 'name handle avatarUrl', model: User })
+        .populate({ path: 'participants', select: 'name handle avatar email', model: User })
         .populate({ path: 'lastMessage', model: Message });
 
         if (existingChat) {
@@ -85,7 +95,7 @@ export async function POST(req: Request) {
 
         // Populate for response
         const populatedChat = await Chat.findById(newChat._id)
-            .populate({ path: 'participants', select: 'name handle avatarUrl', model: User });
+            .populate({ path: 'participants', select: 'name handle avatar email', model: User });
 
         return NextResponse.json({ chat: populatedChat }, { status: 201 });
 
