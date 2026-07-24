@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Search, X, UserPlus } from "lucide-react";
+import { Search, X, UserPlus, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -12,20 +13,46 @@ interface SearchModalProps {
 
 export default function SearchModal({ isOpen, onClose, onSelectUser }: SearchModalProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchQuery("");
+      setSearchResults([]);
+      return;
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      if (!searchQuery.trim()) {
+        setSearchResults([]);
+        setIsSearching(false);
+        return;
+      }
+
+      setIsSearching(true);
+      try {
+        const res = await fetch(`/api/user/search?q=${encodeURIComponent(searchQuery)}`);
+        const data = await res.json();
+        
+        if (res.ok) {
+          setSearchResults(data.users || []);
+        } else {
+          toast.error(data.error || "Failed to search users");
+        }
+      } catch (err) {
+        toast.error("Error connecting to server");
+      } finally {
+        setIsSearching(false);
+      }
+    }, 400); // 400ms debounce
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchQuery]);
 
   if (!isOpen) return null;
-
-  // Hardcoded examples for now
-  const suggestedUsers = [
-    { id: "mock1", name: "Alice Smith", handle: "@alice_s", avatar: "https://i.pravatar.cc/150?u=alice@example.com" },
-    { id: "mock2", name: "Bob Johnson", handle: "@bobj", avatar: "https://i.pravatar.cc/150?u=bob@example.com" },
-    { id: "mock3", name: "Charlie Davis", handle: "@charlied", avatar: "https://i.pravatar.cc/150?u=charlie@example.com" },
-  ];
-
-  const filteredUsers = suggestedUsers.filter(u => 
-    u.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    u.handle.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-foreground/20 backdrop-blur-sm animate-in fade-in duration-200">
@@ -42,23 +69,35 @@ export default function SearchModal({ isOpen, onClose, onSelectUser }: SearchMod
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search for handles, e.g. @alice..."
+            placeholder="Search by handle or email..."
             className="flex-1 bg-transparent text-foreground placeholder-muted outline-none text-lg"
           />
-          <button onClick={onClose} className="p-2 hover:bg-surface rounded-full transition-colors text-muted hover:text-foreground">
+          {searchQuery && (
+            <button onClick={() => setSearchQuery('')} className="p-1 hover:bg-surface rounded-full transition-colors text-muted hover:text-foreground">
+              <X size={16} />
+            </button>
+          )}
+          <button onClick={onClose} className="p-2 ml-1 hover:bg-surface rounded-full transition-colors text-muted hover:text-foreground">
             <X size={20} />
           </button>
         </div>
 
         {/* Results Area */}
         <div className="p-2 max-h-[60vh] overflow-y-auto">
-          <div className="px-3 py-2 text-xs font-semibold text-muted uppercase tracking-wider">
-            {searchQuery.trim() ? "Search Results" : "Suggested Users"}
-          </div>
+          {searchQuery.trim() && (
+            <div className="px-3 py-2 text-xs font-semibold text-muted uppercase tracking-wider flex items-center gap-2">
+              Search Results
+              {isSearching && <Loader2 size={12} className="animate-spin" />}
+            </div>
+          )}
           
           <div className="mt-1 space-y-1">
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map(user => (
+            {!searchQuery.trim() ? (
+              <div className="p-8 text-center text-muted">
+                Type a username, handle, or email to start searching.
+              </div>
+            ) : searchResults.length > 0 ? (
+              searchResults.map(user => (
                 <div
                   key={user.id}
                   onClick={() => {
@@ -81,6 +120,10 @@ export default function SearchModal({ isOpen, onClose, onSelectUser }: SearchMod
                   </button>
                 </div>
               ))
+            ) : isSearching ? (
+              <div className="p-8 text-center text-muted flex justify-center items-center gap-2">
+                <Loader2 size={18} className="animate-spin" /> Searching...
+              </div>
             ) : (
               <div className="p-8 text-center text-muted">
                 No users found matching "{searchQuery}"
