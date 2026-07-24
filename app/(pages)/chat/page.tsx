@@ -59,10 +59,32 @@ export default function ChatPage() {
   useEffect(() => {
     if (selectedChat) {
       fetchMessages(selectedChat);
+      markChatAsRead(selectedChat);
     } else {
       setMessages([]);
     }
   }, [selectedChat]);
+
+  const markChatAsRead = async (chatId: string) => {
+    setChats(prevChats => 
+      prevChats.map(chat => {
+        if (chat._id === chatId) {
+          const newCounts = { ...chat.unreadCounts };
+          if (currentUser?._id) {
+            newCounts[currentUser._id] = 0;
+          }
+          return { ...chat, unreadCounts: newCounts };
+        }
+        return chat;
+      })
+    );
+
+    try {
+      await fetch(`/api/chats/${chatId}/read`, { method: "PUT" });
+    } catch (err) {
+      console.error("Failed to mark chat as read", err);
+    }
+  };
 
   const fetchMessages = async (chatId: string) => {
     try {
