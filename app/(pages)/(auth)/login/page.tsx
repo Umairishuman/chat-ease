@@ -35,10 +35,10 @@ export default function Login() {
 		}
 	};
 
-	useGoogleOneTapLogin({
-		onSuccess: handleGoogleSuccess,
-		onError: () => toast.error('Google One-Tap failed'),
-	});
+	// useGoogleOneTapLogin({
+	// 	onSuccess: handleGoogleSuccess,
+	// 	onError: () => toast.error('Google One-Tap failed'),
+	// });
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
