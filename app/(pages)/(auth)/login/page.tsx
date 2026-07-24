@@ -106,7 +106,7 @@ export default function Login() {
 
 				<form onSubmit={handleSubmit} className="space-y-5">
 					<div>
-						<label className="block text-sm font-medium text-primary-100/80 mb-2">
+						<label className="block text-sm font-medium text-primary-900/80 mb-2">
 							Email Address
 						</label>
 						<input
@@ -120,7 +120,7 @@ export default function Login() {
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-primary-100/80 mb-2">
+						<label className="block text-sm font-medium text-primary-900/80 mb-2">
 							Password
 						</label>
 						<input
@@ -147,14 +147,14 @@ export default function Login() {
 										</svg>
 									</div>
 								</div>
-								<span className="text-sm text-muted group-hover:text-primary-100 transition-colors">
+								<span className="text-sm text-muted group-hover:text-primary-900 transition-colors">
 									Remember me
 								</span>
 							</label>
 
 							<Link
 								href="/forgot-password"
-								className="text-xs text-primary-400 hover:text-primary-300 transition-colors"
+								className="text-xs text-primary-600 hover:text-primary-700 transition-colors"
 							>
 								Forgot password?
 							</Link>
@@ -196,7 +196,7 @@ export default function Login() {
 					Don't have an account?{" "}
 					<Link
 						href="/register"
-						className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
+						className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
 					>
 						Create an account
 					</Link>

@@ -104,7 +104,7 @@ export default function ForgotPassword() {
 				{step === 1 ? (
 					<form onSubmit={handleRequestCode} className="space-y-5">
 						<div>
-							<label className="block text-sm font-medium text-primary-100/80 mb-2">
+							<label className="block text-sm font-medium text-primary-900/80 mb-2">
 								Email Address
 							</label>
 							<input
@@ -128,7 +128,7 @@ export default function ForgotPassword() {
 				) : (
 					<form onSubmit={handleResetPassword} className="space-y-5">
 						<div>
-							<label className="block text-sm font-medium text-primary-100/80 mb-2">
+							<label className="block text-sm font-medium text-primary-900/80 mb-2">
 								Email Address
 							</label>
 							<input
@@ -139,7 +139,7 @@ export default function ForgotPassword() {
 							/>
 						</div>
 						<div>
-							<label className="block text-sm font-medium text-primary-100/80 mb-2">
+							<label className="block text-sm font-medium text-primary-900/80 mb-2">
 								6-Digit Code
 							</label>
 							<input
@@ -154,7 +154,7 @@ export default function ForgotPassword() {
 						</div>
 
 						<div>
-							<label className="block text-sm font-medium text-primary-100/80 mb-2">
+							<label className="block text-sm font-medium text-primary-900/80 mb-2">
 								New Password
 							</label>
 							<input
@@ -181,7 +181,7 @@ export default function ForgotPassword() {
 					Remembered your password?{" "}
 					<Link
 						href="/login"
-						className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
+						className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
 					>
 						Back to login
 					</Link>

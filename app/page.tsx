@@ -17,14 +17,14 @@ export default function Home() {
         <section className="relative pt-40 pb-24 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div className="flex flex-col gap-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md bg-surface border border-border text-primary-200 text-sm font-medium w-fit shadow-lg shadow-black/10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md bg-surface border border-border text-primary-800 text-sm font-medium w-fit shadow-lg shadow-black/10">
                 <span className="w-2 h-2 rounded-full bg-primary-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
                 Real-time messaging evolved
               </div>
               <h1 className="text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
                 Connect <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-200 via-primary-400 to-emerald-300 drop-shadow-sm">Instantly</span> With Anyone.
               </h1>
-              <p className="text-xl text-primary-100/80 max-w-lg leading-relaxed font-light">
+              <p className="text-xl text-primary-900/80 max-w-lg leading-relaxed font-light">
                 Experience seamless, lightning-fast communication. Search handles, start chats, and never miss a message with our beautiful modern interface.
               </p>
               <div className="flex flex-wrap items-center gap-5 pt-4">
@@ -63,7 +63,7 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-32 relative">
+        {/* <section id="features" className="py-32 relative">
           <div className="absolute inset-0 bg-surface backdrop-blur-3xl border-y border-border" />
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="text-center mb-20">
@@ -89,7 +89,7 @@ export default function Home() {
               />
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Footer */}
         <footer className="py-12 relative text-center text-muted font-light border-t border-border">

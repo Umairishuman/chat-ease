@@ -76,7 +76,7 @@ export default function Register() {
 
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div>
-						<label className="block text-sm font-medium text-primary-100/80 mb-1.5">
+						<label className="block text-sm font-medium text-primary-900/80 mb-1.5">
 							Full Name
 						</label>
 						<input
@@ -91,7 +91,7 @@ export default function Register() {
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-primary-100/80 mb-1.5">
+						<label className="block text-sm font-medium text-primary-900/80 mb-1.5">
 							Unique Handle
 						</label>
 						<input
@@ -106,7 +106,7 @@ export default function Register() {
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-primary-100/80 mb-1.5">
+						<label className="block text-sm font-medium text-primary-900/80 mb-1.5">
 							Email Address
 						</label>
 						<input
@@ -121,7 +121,7 @@ export default function Register() {
 					</div>
 
 					<div>
-						<label className="block text-sm font-medium text-primary-100/80 mb-1.5">
+						<label className="block text-sm font-medium text-primary-900/80 mb-1.5">
 							Password
 						</label>
 						<input
@@ -148,7 +148,7 @@ export default function Register() {
 					Already have an account?{" "}
 					<Link
 						href="/login"
-						className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
+						className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
 					>
 						Sign in
 					</Link>

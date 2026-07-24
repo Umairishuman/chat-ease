@@ -93,7 +93,7 @@ export default function ChatPage() {
               </div>
               <div>
                 <h2 className="font-semibold text-foreground">{currentUser?.name}</h2>
-                <p className="text-xs text-primary-200/60">{currentUser?.handle}</p>
+                <p className="text-xs text-primary-800/60">{currentUser?.handle}</p>
               </div>
             </div>
             <div className="flex items-center gap-2 text-muted">
@@ -145,7 +145,7 @@ export default function ChatPage() {
                     <span className="text-xs text-muted flex-shrink-0 ml-2">{chat.time}</span>
                   </div>
                   <div className="flex justify-between items-center gap-2">
-                    <p className={`text-sm truncate ${chat.unread > 0 ? "text-primary-100 font-medium" : "text-muted"}`}>
+                    <p className={`text-sm truncate ${chat.unread > 0 ? "text-primary-900 font-medium" : "text-muted"}`}>
                       {chat.lastMessage}
                     </p>
                     {chat.unread > 0 && (
@@ -175,7 +175,7 @@ export default function ChatPage() {
                     </div>
                     <div>
                       <h2 className="font-semibold text-foreground">{currentUser?.name}</h2>
-                      <p className="text-xs text-primary-200/60">{currentUser?.handle}</p>
+                      <p className="text-xs text-primary-800/60">{currentUser?.handle}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-muted">
@@ -220,7 +220,7 @@ export default function ChatPage() {
                   </div>
                   <div>
                     <h2 className="font-semibold text-lg text-foreground leading-tight">{activeChatDetails?.name}</h2>
-                    <p className="text-xs text-primary-200/60">{activeChatDetails?.handle}</p>
+                    <p className="text-xs text-primary-800/60">{activeChatDetails?.handle}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 text-muted">
@@ -267,7 +267,7 @@ export default function ChatPage() {
               {/* Message Input Container */}
               <div className="p-4 bg-surface border-t border-border backdrop-blur-lg">
                 <div className="flex items-end gap-3 bg-surface border border-border rounded-[2rem] p-2 pr-2.5 shadow-inner">
-                  <button className="p-3 text-muted hover:text-primary-400 hover:bg-surface rounded-full transition-colors flex-shrink-0">
+                  <button className="p-3 text-muted hover:text-primary-700 hover:bg-surface rounded-full transition-colors flex-shrink-0">
                     <Paperclip size={20} />
                   </button>
                   <textarea
