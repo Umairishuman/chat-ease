@@ -3,6 +3,7 @@ import User from "@/app/models/User";
 import bcrypt from "bcryptjs";
 import connectDB from "@/app/(pages)/lib/db";
 import { createSession } from "../../lib/serverAuth";
+import { RATE_LIMITS, getClientIp, rateLimit, tooManyRequests } from "../../lib/rateLimit";
 
 export async function POST(request: Request) {
     try {
@@ -12,6 +13,9 @@ export async function POST(request: Request) {
         if (!name || !email || !password || !handle) {
             return NextResponse.json({ error: "Name, email, handle, and password are required" }, { status: 400 });
         }
+
+        const limit = rateLimit(`register:ip:${getClientIp(request)}`, RATE_LIMITS.registerPerIp);
+        if (!limit.allowed) return tooManyRequests(limit.retryAfterSeconds);
 
         await connectDB();
 

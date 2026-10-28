@@ -2,30 +2,40 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/app/(pages)/lib/db';
 import User from '@/app/models/User';
 import nodemailer from 'nodemailer';
-import { randomInt } from 'crypto';
+import { RATE_LIMITS, getClientIp, rateLimitAll, tooManyRequests } from '../../lib/rateLimit';
+import { RESET_CODE_TTL_MS, generateResetCode, hashResetCode } from '../../lib/resetCode';
+
+// Same response whether or not the account exists, so this endpoint cannot be used
+// to discover which emails are registered.
+const GENERIC_RESPONSE = { message: 'If an account exists for that email, a reset code has been sent.' };
 
 export async function POST(req: Request) {
     try {
         const { email } = await req.json();
 
-        if (!email) {
+        if (!email || typeof email !== 'string') {
             return NextResponse.json({ error: 'Email is required' }, { status: 400 });
         }
+
+        const limit = rateLimitAll([
+            { key: `forgot:email:${email.trim().toLowerCase()}`, rule: RATE_LIMITS.forgotPasswordPerEmail },
+            { key: `forgot:ip:${getClientIp(req)}`, rule: RATE_LIMITS.forgotPasswordPerIp },
+        ]);
+        if (!limit.allowed) return tooManyRequests(limit.retryAfterSeconds);
 
         await connectDB();
 
         const user = await User.findOne({ email });
 
         if (!user) {
-            return NextResponse.json({ error: 'No account found with that email address' }, { status: 404 });
+            return NextResponse.json(GENERIC_RESPONSE, { status: 200 });
         }
 
-        // Generate 6 digit code
-        const code = randomInt(100000, 1000000).toString();
+        const code = generateResetCode();
 
-        // Set expiration (15 minutes from now)
-        user.resetPasswordCode = code;
-        user.resetPasswordExpires = new Date(Date.now() + 15 * 60 * 1000);
+        user.resetPasswordCode = hashResetCode(code);
+        user.resetPasswordExpires = new Date(Date.now() + RESET_CODE_TTL_MS);
+        user.resetPasswordAttempts = 0;
         await user.save();
 
         // Send email
@@ -58,7 +68,7 @@ export async function POST(req: Request) {
 
         await transporter.sendMail(mailOptions);
 
-        return NextResponse.json({ message: 'Reset code sent successfully' }, { status: 200 });
+        return NextResponse.json(GENERIC_RESPONSE, { status: 200 });
     } catch (error) {
         console.error('Forgot password error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

@@ -6,9 +6,11 @@ Chat-Ease is a real-time, one-to-one messaging web app built with **Next.js 16 (
 
 - Email/password sign-up and login (bcrypt-hashed passwords, JWT session in an httpOnly cookie, "remember me")
 - Google Sign-In
-- Password reset with a 6-digit code sent by email (Gmail via Nodemailer)
+- Password reset with a 6-digit code sent by email (Gmail via Nodemailer); codes are stored hashed, expire after 15 minutes and are invalidated after 5 wrong guesses
+- Rate limiting on login, registration and password-reset endpoints
 - User search by name, handle or email, and starting a new conversation
-- Real-time messaging over Socket.io, with messages stored in MongoDB
+- Real-time messaging over Socket.io (cookie-authenticated connections), with messages stored in MongoDB
+- Cursor-based message pagination: older messages load as you scroll up, keeping your place
 - Unread counters and read tracking per chat
 - Emoji picker
 - Profile settings with avatar uploads to Cloudinary
@@ -32,14 +34,17 @@ app/
 │   ├── (auth)/            # login, register, forgot-password pages
 │   ├── chat/              # main chat UI
 │   ├── settings/          # profile settings
-│   └── lib/db.ts          # cached MongoDB connection
+│   └── lib/               # MongoDB connection, API client, helpers
 ├── api/
 │   ├── auth/              # register, login, logout, me, google, forgot/reset password
 │   ├── chats/             # list/create chats, messages, mark as read
 │   ├── user/              # search, profile update
 │   ├── health/            # health check (reports MongoDB connectivity)
-│   └── lib/               # session/JWT helpers
-├── components/            # Navbar, SearchModal, Providers
+│   └── lib/               # session/JWT, rate limiting, reset codes
+├── components/            # Shared UI (Avatar, Spinner, SearchModal, …)
+│   └── chat/              # Chat sidebar, window, message list/input
+├── hooks/                 # useChatSocket, useChatMessages
+├── types/                 # Shared client-side types
 ├── models/                # User, Chat, Message schemas
 ├── globals.css            # theme variables
 └── layout.tsx
@@ -77,7 +82,7 @@ See [`.env.example`](./.env.example) for the full list with comments.
 
 > **Important:** real-time messaging uses a Socket.io server that attaches to the Node.js HTTP server (`pages/api/socket.ts`). It needs a **long-running Node.js server** (`next start`). Serverless platforms such as **Vercel and Netlify do not support this**: the app would build, but live message delivery would not work (messages would only appear after a refresh).
 >
-> Run a **single instance**. Socket.io rooms live in memory, so with several instances, users connected to different instances won't get each other's live messages. To scale out, add the [Socket.io Redis adapter](https://socket.io/docs/v4/redis-adapter/).
+> Run a **single instance**. Socket.io rooms and rate-limit counters live in memory, so with several instances, users connected to different instances won't get each other's live messages and limits are counted per instance. To scale out, add the [Socket.io Redis adapter](https://socket.io/docs/v4/redis-adapter/) and move the rate-limit counters to Redis.
 
 ### Option A: Node.js host (Render, Railway, a VPS, …)
 
@@ -112,6 +117,7 @@ Works on Fly.io, Google Cloud Run (configure session affinity and a long request
 3. **Cloudinary:** the upload preset must be **unsigned**.
 4. **Gmail:** use an App Password for `EMAIL_PASS`.
 5. Serve the app over **HTTPS**. Session cookies are marked `Secure` in production.
+   Rate limiting identifies clients by the last `X-Forwarded-For` hop, which your host's proxy sets. If you add another proxy or CDN in front, adjust `getClientIp` in `app/api/lib/rateLimit.ts`.
 6. Open `/api/health`: it should return `{"status":"ok","database":"connected"}`.
 
 ## Scripts

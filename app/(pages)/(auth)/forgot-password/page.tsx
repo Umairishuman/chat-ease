@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/app/(pages)/lib/errors";
 
 export default function ForgotPassword() {
 	const [email, setEmail] = useState("");
@@ -28,10 +29,10 @@ export default function ForgotPassword() {
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Failed to request code");
 
-			toast.success("Reset code was sent.");
+			toast.success(data.message || "If an account exists for that email, a reset code has been sent.");
 			setStep(2);
-		} catch (err: any) {
-			toast.error(err.message || "An error occurred");
+		} catch (err) {
+			toast.error(getErrorMessage(err, "An error occurred"));
 		} finally {
 			setLoading(false);
 		}
@@ -53,8 +54,8 @@ export default function ForgotPassword() {
 
 			toast.success("Password successfully reset!");
 			router.push("/login");
-		} catch (err: any) {
-			toast.error(err.message || "Invalid or expired code");
+		} catch (err) {
+			toast.error(getErrorMessage(err, "Invalid or expired code"));
 		} finally {
 			setLoading(false);
 		}

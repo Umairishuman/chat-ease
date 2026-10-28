@@ -6,6 +6,7 @@ import Image from "next/image";
 import { registerUser } from "@/api/auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/app/(pages)/lib/errors";
 
 export default function Register() {
 	const [formData, setFormData] = useState({
@@ -29,8 +30,8 @@ export default function Register() {
 			await registerUser(formData);
 			toast.success("Registration successful!");
 			router.push("/chat");
-		} catch (err: any) {
-			toast.error(err.message || "Something went wrong. Please try again.");
+		} catch (err) {
+			toast.error(getErrorMessage(err, "Something went wrong. Please try again."));
 		} finally {
 			setLoading(false);
 		}

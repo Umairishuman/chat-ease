@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/app/(pages)/lib/errors";
+import Spinner from "@/app/components/Spinner";
 import { ArrowLeft, Camera, User, AtSign } from "lucide-react";
 
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
@@ -96,8 +98,8 @@ export default function SettingsPage() {
             
             toast.success("Profile updated successfully!");
             router.push("/chat");
-        } catch (err: any) {
-            toast.error(err.message || "Failed to update profile");
+        } catch (err) {
+            toast.error(getErrorMessage(err, "Failed to update profile"));
             toast.dismiss("upload-toast");
         } finally {
             setSaving(false);
@@ -107,7 +109,7 @@ export default function SettingsPage() {
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-background font-sans">
-                <div className="w-12 h-12 border-4 border-primary-500/20 border-t-primary-500 rounded-full animate-spin"></div>
+                <Spinner />
             </div>
         );
     }

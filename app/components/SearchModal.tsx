@@ -1,28 +1,26 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { Search, X, UserPlus, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
+import Avatar from "./Avatar";
+import { searchUsers } from "@/app/(pages)/lib/api";
+import { getErrorMessage } from "@/app/(pages)/lib/errors";
+import type { SearchUser } from "@/app/types/chat";
+
+// Debounce delay before querying the search API
+const SEARCH_DEBOUNCE_MS = 400;
 
 interface SearchModalProps {
-  isOpen: boolean;
   onClose: () => void;
-  onSelectUser: (user: any) => void;
+  onSelectUser: (user: SearchUser) => void;
 }
 
-export default function SearchModal({ isOpen, onClose, onSelectUser }: SearchModalProps) {
+// Render only while open; unmounting resets the query and results.
+export default function SearchModal({ onClose, onSelectUser }: SearchModalProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchUser[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setSearchQuery("");
-      setSearchResults([]);
-      return;
-    }
-  }, [isOpen]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
@@ -34,33 +32,24 @@ export default function SearchModal({ isOpen, onClose, onSelectUser }: SearchMod
 
       setIsSearching(true);
       try {
-        const res = await fetch(`/api/user/search?q=${encodeURIComponent(searchQuery)}`);
-        const data = await res.json();
-        
-        if (res.ok) {
-          setSearchResults(data.users || []);
-        } else {
-          toast.error(data.error || "Failed to search users");
-        }
+        setSearchResults(await searchUsers(searchQuery));
       } catch (err) {
-        toast.error("Error connecting to server");
+        toast.error(getErrorMessage(err, "Failed to search users"));
       } finally {
         setIsSearching(false);
       }
-    }, 400); // 400ms debounce
+    }, SEARCH_DEBOUNCE_MS);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery]);
-
-  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-foreground/20 backdrop-blur-sm animate-in fade-in duration-200">
       {/* Click outside to close */}
       <div className="absolute inset-0" onClick={onClose} />
-      
+
       <div className="relative w-full max-w-lg bg-background border border-border rounded-3xl shadow-2xl overflow-hidden animate-in slide-in-from-top-4 duration-300">
-        
+
         {/* Search Input Area */}
         <div className="p-4 border-b border-border flex items-center gap-3">
           <Search className="text-muted flex-shrink-0" size={22} />
@@ -90,7 +79,7 @@ export default function SearchModal({ isOpen, onClose, onSelectUser }: SearchMod
               {isSearching && <Loader2 size={12} className="animate-spin" />}
             </div>
           )}
-          
+
           <div className="mt-1 space-y-1">
             {!searchQuery.trim() ? (
               <div className="p-8 text-center text-muted">
@@ -107,9 +96,7 @@ export default function SearchModal({ isOpen, onClose, onSelectUser }: SearchMod
                   className="flex items-center justify-between p-3 rounded-2xl hover:bg-surface cursor-pointer transition-colors group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden border border-border">
-                      <Image src={user.avatar} alt={user.name} fill className="object-cover" />
-                    </div>
+                    <Avatar src={user.avatar} alt={user.name} className="w-12 h-12 border border-border" />
                     <div>
                       <h3 className="font-semibold text-foreground leading-tight">{user.name}</h3>
                       <p className="text-sm text-muted">{user.handle}</p>
@@ -126,7 +113,7 @@ export default function SearchModal({ isOpen, onClose, onSelectUser }: SearchMod
               </div>
             ) : (
               <div className="p-8 text-center text-muted">
-                No users found matching "{searchQuery}"
+                No users found matching &ldquo;{searchQuery}&rdquo;
               </div>
             )}
           </div>

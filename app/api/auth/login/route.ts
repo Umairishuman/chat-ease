@@ -3,6 +3,7 @@ import connectDB from '@/app/(pages)/lib/db';
 import User from '@/app/models/User';
 import bcrypt from 'bcryptjs';
 import { createSession } from '../../lib/serverAuth';
+import { RATE_LIMITS, clearRateLimit, getClientIp, rateLimitAll, tooManyRequests } from '../../lib/rateLimit';
 
 export async function POST(req: Request) {
     try {
@@ -11,6 +12,14 @@ export async function POST(req: Request) {
         if (!email || !password) {
             return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
         }
+
+        const ip = getClientIp(req);
+        const accountKey = `login:account:${ip}:${String(email).trim().toLowerCase()}`;
+        const limit = rateLimitAll([
+            { key: accountKey, rule: RATE_LIMITS.loginPerAccount },
+            { key: `login:ip:${ip}`, rule: RATE_LIMITS.loginPerIp },
+        ]);
+        if (!limit.allowed) return tooManyRequests(limit.retryAfterSeconds);
 
         await connectDB();
 
@@ -29,6 +38,9 @@ export async function POST(req: Request) {
         if (!isMatch) {
             return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
         }
+
+        // A successful login resets the per-account attempt counter
+        clearRateLimit(accountKey);
 
         await createSession({ userId: user._id.toString(), email: user.email }, Boolean(rememberMe));
 

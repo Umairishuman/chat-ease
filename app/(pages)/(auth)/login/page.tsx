@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { GoogleLogin, useGoogleOneTapLogin, CredentialResponse } from '@react-oauth/google';
+import { getErrorMessage } from "@/app/(pages)/lib/errors";
+import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 
 export default function Login() {
 	const [email, setEmail] = useState("");
@@ -28,8 +29,8 @@ export default function Login() {
 
 			toast.success("Login successful!");
 			router.push("/chat");
-		} catch (err: any) {
-			toast.error(err.message || "Failed to authenticate with Google");
+		} catch (err) {
+			toast.error(getErrorMessage(err, "Failed to authenticate with Google"));
 		} finally {
 			setLoading(false);
 		}
@@ -56,8 +57,8 @@ export default function Login() {
 
 			toast.success("Login successful!");
 			router.push("/chat");
-		} catch (err: any) {
-			toast.error(err.message || "Invalid credentials.");
+		} catch (err) {
+			toast.error(getErrorMessage(err, "Invalid credentials."));
 		} finally {
 			setLoading(false);
 		}
@@ -193,7 +194,7 @@ export default function Login() {
 				</form>
 
 				<div className="mt-8 text-center text-sm text-muted">
-					Don't have an account?{" "}
+					Don&apos;t have an account?{" "}
 					<Link
 						href="/register"
 						className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
