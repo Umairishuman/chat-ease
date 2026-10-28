@@ -2,12 +2,9 @@ import { NextResponse } from 'next/server';
 import { OAuth2Client } from 'google-auth-library';
 import connectDB from '@/app/(pages)/lib/db';
 import User from '@/app/models/User';
-import { SignJWT } from 'jose';
-import { cookies } from 'next/headers';
+import { createSession } from '../../lib/serverAuth';
 
 const client = new OAuth2Client(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
-const SECRET = new TextEncoder().encode(process.env.JOSE_SECRET || 'fallback-secret-key-12345');
-const REMEMBER_ME_EXPIRATION = process.env.REMEMBER_ME_EXPIRATION || '30d';
 
 export async function POST(req: Request) {
     try {
@@ -49,32 +46,15 @@ export async function POST(req: Request) {
             });
         }
 
-        // Always issue a "remember me" length token for Google Sign In
-        const maxAgeSeconds = 30 * 24 * 60 * 60; // 30 days
-
-        const token = await new SignJWT({ userId: user._id.toString(), email: user.email })
-            .setProtectedHeader({ alg: 'HS256' })
-            .setIssuedAt()
-            .setExpirationTime(REMEMBER_ME_EXPIRATION)
-            .sign(SECRET);
-
-        const cookieStore = await cookies();
-        cookieStore.set({
-            name: 'session_token',
-            value: token,
-            httpOnly: true,
-            path: '/',
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: maxAgeSeconds,
-            sameSite: 'lax',
-        });
+        // Always issue a "remember me" length session for Google Sign In
+        await createSession({ userId: user._id.toString(), email: user.email }, true);
 
         const userObj = user.toObject();
         delete userObj.password;
 
         return NextResponse.json({ message: 'Google Login successful', user: userObj }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Google Auth error:', error);
         return NextResponse.json({ error: 'Failed to authenticate with Google' }, { status: 500 });
     }

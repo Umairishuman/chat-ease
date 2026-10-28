@@ -1,26 +1,19 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/app/(pages)/lib/db';
 import User from '@/app/models/User';
-import { jwtVerify } from 'jose';
-import { cookies } from 'next/headers';
+import { getAuthenticatedUser } from '../../lib/serverAuth';
 
-const SECRET = new TextEncoder().encode(process.env.JOSE_SECRET || 'fallback-secret-key-12345');
+// Escape user input so it is matched literally (prevents regex injection / ReDoS).
+function escapeRegex(value: string): string {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 export async function GET(req: Request) {
     try {
-        const cookieStore = await cookies();
-        const token = cookieStore.get('session_token')?.value;
+        const session = await getAuthenticatedUser();
 
-        if (!token) {
+        if (!session) {
             return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
-        }
-
-        let payload;
-        try {
-            const verified = await jwtVerify(token, SECRET);
-            payload = verified.payload;
-        } catch (err) {
-            return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
         }
 
         const { searchParams } = new URL(req.url);
@@ -32,13 +25,15 @@ export async function GET(req: Request) {
 
         await connectDB();
 
+        const pattern = new RegExp(escapeRegex(query.trim().slice(0, 100)), 'i');
+
         // Search by handle, email, or name. Exclude the current user.
         const users = await User.find({
-            _id: { $ne: payload.userId },
+            _id: { $ne: session.userId },
             $or: [
-                { handle: { $regex: query, $options: 'i' } },
-                { email: { $regex: query, $options: 'i' } },
-                { name: { $regex: query, $options: 'i' } }
+                { handle: pattern },
+                { email: pattern },
+                { name: pattern }
             ]
         })
         .select('name handle avatar email')
@@ -55,7 +50,7 @@ export async function GET(req: Request) {
 
         return NextResponse.json({ users: formattedUsers }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('User search error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }

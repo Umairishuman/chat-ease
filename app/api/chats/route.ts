@@ -4,8 +4,14 @@ import Chat from '@/app/models/Chat';
 import User from '@/app/models/User';
 import Message from '@/app/models/Message';
 import { getAuthenticatedUser } from '../lib/serverAuth';
+import type { Types } from 'mongoose';
 
-export async function GET(req: Request) {
+interface PopulatedChat {
+    lastMessage?: unknown;
+    participants: { _id: Types.ObjectId }[];
+}
+
+export async function GET() {
     try {
         const user = await getAuthenticatedUser();
         if (!user) {
@@ -26,11 +32,11 @@ export async function GET(req: Request) {
                 model: Message
             })
             .sort({ updatedAt: -1 })
-            .lean();
+            .lean<PopulatedChat[]>();
 
         // Filter out empty chats for the receiver
         // If a chat has no last message, only show it to the person who created it (participants[0])
-        const filteredChats = chats.filter((chat: any) => {
+        const filteredChats = chats.filter((chat) => {
             if (chat.lastMessage) return true;
             if (chat.participants && chat.participants.length > 0) {
                 return chat.participants[0]._id.toString() === user.userId;
@@ -40,7 +46,7 @@ export async function GET(req: Request) {
 
         return NextResponse.json({ chats: filteredChats }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Fetch chats error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
@@ -99,7 +105,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ chat: populatedChat }, { status: 201 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Create chat error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }

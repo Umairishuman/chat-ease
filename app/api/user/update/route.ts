@@ -1,26 +1,20 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/app/(pages)/lib/db';
 import User from '@/app/models/User';
-import { jwtVerify } from 'jose';
-import { cookies } from 'next/headers';
+import { getAuthenticatedUser } from '../../lib/serverAuth';
 
-const SECRET = new TextEncoder().encode(process.env.JOSE_SECRET || 'fallback-secret-key-12345');
+interface ProfileUpdate {
+    name: string;
+    handle: string;
+    avatar?: string;
+}
 
 export async function PUT(req: Request) {
     try {
-        const cookieStore = await cookies();
-        const token = cookieStore.get('session_token')?.value;
+        const session = await getAuthenticatedUser();
 
-        if (!token) {
+        if (!session) {
             return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
-        }
-
-        let payload;
-        try {
-            const verified = await jwtVerify(token, SECRET);
-            payload = verified.payload;
-        } catch (err) {
-            return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
         }
 
         const { name, handle, avatar } = await req.json();
@@ -32,18 +26,18 @@ export async function PUT(req: Request) {
         await connectDB();
 
         // Check if handle is taken by another user
-        const existingHandle = await User.findOne({ handle, _id: { $ne: payload.userId } });
+        const existingHandle = await User.findOne({ handle, _id: { $ne: session.userId } });
         if (existingHandle) {
             return NextResponse.json({ error: 'This handle is already taken' }, { status: 400 });
         }
 
-        const updateData: any = { name, handle };
+        const updateData: ProfileUpdate = { name, handle };
         if (avatar) {
             updateData.avatar = avatar;
         }
 
         const updatedUser = await User.findByIdAndUpdate(
-            payload.userId,
+            session.userId,
             updateData,
             { new: true }
         ).select('-password');
@@ -54,7 +48,7 @@ export async function PUT(req: Request) {
 
         return NextResponse.json({ message: 'Profile updated successfully', user: updatedUser }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Update profile error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }

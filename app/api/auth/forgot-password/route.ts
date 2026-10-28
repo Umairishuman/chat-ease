@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/app/(pages)/lib/db';
 import User from '@/app/models/User';
 import nodemailer from 'nodemailer';
+import { randomInt } from 'crypto';
 
 export async function POST(req: Request) {
     try {
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
         }
 
         // Generate 6 digit code
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
+        const code = randomInt(100000, 1000000).toString();
 
         // Set expiration (15 minutes from now)
         user.resetPasswordCode = code;
@@ -58,7 +59,7 @@ export async function POST(req: Request) {
         await transporter.sendMail(mailOptions);
 
         return NextResponse.json({ message: 'Reset code sent successfully' }, { status: 200 });
-    } catch (error: any) {
+    } catch (error) {
         console.error('Forgot password error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/app/(pages)/lib/db';
 import Chat from '@/app/models/Chat';
-import User from '@/app/models/User';
 import Message from '@/app/models/Message';
 import { getAuthenticatedUser } from '../../../lib/serverAuth';
 import mongoose from 'mongoose';
@@ -27,7 +26,7 @@ export async function GET(
         const url = new URL(req.url);
         // cursor is the ID of the oldest message currently loaded on the client
         const cursor = url.searchParams.get('cursor');
-        const limit = parseInt(url.searchParams.get('limit') || '50');
+        const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit') || '50') || 50, 1), 100);
 
         await connectDB();
 
@@ -37,8 +36,8 @@ export async function GET(
              return NextResponse.json({ error: 'Chat not found or access denied' }, { status: 404 });
         }
 
-        let query: any = { chatId };
-        
+        const query: { chatId: string; _id?: { $lt: string } } = { chatId };
+
         if (cursor && mongoose.Types.ObjectId.isValid(cursor)) {
              query._id = { $lt: cursor };
         }
@@ -62,7 +61,7 @@ export async function GET(
             hasMore
         }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Fetch messages error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
@@ -126,7 +125,7 @@ export async function POST(
 
         return NextResponse.json({ message }, { status: 201 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Send message error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }

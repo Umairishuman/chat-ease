@@ -68,12 +68,9 @@ export default function ChatPage() {
       const socketInitializer = async () => {
         await fetch('/api/socket');
         
+        // The server identifies the user from the session cookie sent with the handshake
         socketRef.current = io(undefined, {
           path: '/api/socket',
-        });
-
-        socketRef.current.on('connect', () => {
-          socketRef.current?.emit('register', currentUser._id);
         });
 
         socketRef.current.on('receive_message', (data: any) => {
@@ -200,9 +197,8 @@ export default function ChatPage() {
         fetchChats(); // Update last message in sidebar
         
         // Emit to socket
-        if (socketRef.current && activeOtherParticipant) {
+        if (socketRef.current) {
           socketRef.current.emit('send_message', {
-            receiverId: activeOtherParticipant._id,
             message: data.message,
             chatId: selectedChat
           });

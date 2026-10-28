@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { registerUser } from "@/api/auth";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
 	const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function Register() {
 		password: "",
 	});
 	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -26,6 +28,7 @@ export default function Register() {
 		try {
 			await registerUser(formData);
 			toast.success("Registration successful!");
+			router.push("/chat");
 		} catch (err: any) {
 			toast.error(err.message || "Something went wrong. Please try again.");
 		} finally {

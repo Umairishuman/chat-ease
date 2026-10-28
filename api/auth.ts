@@ -11,7 +11,7 @@ export async function registerUser(data: { name: string; handle: string; email: 
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || 'Failed to register');
+    throw new Error(errorData.error || 'Failed to register');
   }
 
   return response.json();
@@ -28,7 +28,7 @@ export async function loginUser(data: { email: string; password: string }) {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || 'Failed to login');
+    throw new Error(errorData.error || 'Failed to login');
   }
 
   return response.json();

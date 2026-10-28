@@ -7,6 +7,9 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Camera, User, AtSign } from "lucide-react";
 
+const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
 export default function SettingsPage() {
     const [name, setName] = useState("");
     const [handle, setHandle] = useState("");
@@ -58,12 +61,15 @@ export default function SettingsPage() {
 
             // Upload to Cloudinary if a new file was selected
             if (avatarFile) {
+                if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+                    throw new Error("Avatar uploads are not configured");
+                }
                 toast.loading("Uploading avatar...", { id: "upload-toast" });
                 const formData = new FormData();
                 formData.append("file", avatarFile);
-                formData.append("upload_preset", "chat-ease-profilepics");
+                formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-                const cloudRes = await fetch("https://api.cloudinary.com/v1_1/dfr57apl2/image/upload", {
+                const cloudRes = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
                     method: "POST",
                     body: formData,
                 });
